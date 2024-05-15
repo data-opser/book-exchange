@@ -4,23 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enigma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
 </head>
-<body>
-    <header>
+
+<body class="container">
+
+    <header class="blockheader">
         <h1 class="logo">Enigma</h1>
-        <div class="search"></div>
+        <div class="search-form">
+            <input class="search-form_txt" type="text" placeholder="search a book...">
+            <button class="search-form_button"><img class="search-form_img" src="../resources/magnifying glass.png" alt=""></button>
+        </div>
         <p class="profileU">Log in</p>
     </header>
-    <main>
 
-        <div class="discover">
-            <h2>Discover Your Next Great Read</h2>
-            <p>A vibrant community for book lovers to share, discover, and discuss their favorite titles.</p>
-            <div class="join">Join Now</div>
-            <div class="browse">Browse Catalog</div>
+    <main class="blockmain">
+        <div class="intro">
+            <div class="discover">
+                <h2 class="marginTop">Discover Your</h2>
+                <h2 class="marginBot">Next Great Read</h2>
+                <p>A vibrant community for book lovers to share,</p>
+                <p class="marginBot">discover, and discuss their favorite titles.</p>
+                <button class="join">Join Now</button>
+                <button class="browse">Browse Catalog</button>
+            </div>
+            <img class="library" src="../resources/bookshelf.png" alt="">
         </div>
-        <img class="library" src="../resources/bookshelf.png" alt="">
+        
 
         <h3 class="lastR">Last 3 Releases</h3>
         <div class="release">
@@ -28,25 +49,25 @@
                 <h3>"My mother is a mountain" Chrystya Vengrynyuk</h3>
                 <p>In this book, the narrative unfolds around the exceptional power of motherhood and the steadfast support the protagonist finds in her mother.</p>
             </div>
-            <img class="book" src="../resources/The Dream Daughter.png" alt="">
+            <img class="book" src="../resources/books/My mother is a mountain.png" alt="">
         </div>
         <div class="release">
             <div class="review">
                 <h3>"The Dream Daughter" Diane Chamberlain</h3>
                 <p>Delve into the intricate layers of family secrets and self-discovery as the protagonist embarks on a journey to uncover her true identity in this captivating narrative.</p>
             </div>
-            <img class="book" src="../resources/The Dream Daughter.png" alt="">
+            <img class="book" src="../resources/books/The Dream Daughter.png" alt="">
         </div>
         <div class="release">
             <div class="review">
                 <h3>'Yellowish' Rebecca Kwan</h3>
                 <p>Dive into a profound journey of self-discovery and unwavering resilience as the central character confronts and conquers life's myriad challenges with courage and determination.</p>
             </div>
-            <img class="book" src="../resources/Yellowish.png" alt="">
+            <img class="book" src="../resources/books/Yellowish.png" alt="">
         </div>
     </main>
 
-    <footer>
+    <footer class="blockfooter">
         <div class="info">
             <h1 class="logo">Enigma</h1>
             <p>0-800-506-231</p>

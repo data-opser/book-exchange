@@ -1,35 +1,115 @@
-body {
-    margin: 0;
-    background-color: #FBF2E5;
+.container {
+    display: grid;
+    grid-template: 1fr 15fr 1fr / 1fr 7fr 1fr;
 }
 
-header {
-    width: 100%;
-    height: 150px;
+.blockheader {
+    grid-area: 1 / 1 / 2 / 4;
     margin: 0;
     display: flex;
     justify-content: space-between;
+    box-sizing: border-box; 
 }
 
-footer {
-    background-color: #5C3131;
-    opacity: 54%;
+.blockmain {
+    grid-area: 2 / 2 / 3 / 3;
 }
 
-h1 {
+.blockfooter {
+    grid-area: 3 / 1 / 4 / 4;
+    background-color: #a37575;
+    color: black;
+}
+
+body {
+    margin: 0;
+    background-color: #FBF2E5;
+    color: #834C4C;
+}
+
+.logo {
+    margin: 0;
+    font-family: "Alegreya SC", serif;
+    font-weight: 400;
+    font-style: italic; 
+    font-size: 64px;
+    padding-left: 1%; 
+}
+
+h2 {
+    font-size: 64px;
     margin: 0;
 }
 
-.search {
+.join {
+    background-color: #834C4C;
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    border: 0;
+}
+
+.browse {
     background-color: white;
-    width: 100px;
-    height: 20px;
+    padding: 20px;
+    color: #834C4C;
+    border: #834C4C 3px solid;
+    border-radius: 10px;
+    margin-left: 2%;
+}
+
+.join, .browse {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 48px;
+}
+h2, h3{
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.marginTop {
+    margin-top: 6%;
+}
+.marginBot {
+    margin-bottom: 6%;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    font-size: 40px;
+    margin: 0;
+}
+
+.profileU {
+    font-size: 32px;
+    padding: 1%; 
+}
+
+.library {
+    margin-left: 2%;
+    border-radius: 13px;
 }
 
 .join, .browse, .discover, .library, .review, .book, .info, .app {
     display: inline-block;
 }
 
+.intro {
+    margin: 1% 5%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
 .lastR {
     display: flex;
     justify-content: center;
@@ -44,5 +124,41 @@ h1 {
     background-color: #E5C3C3;
 }
 
+/* search */
+.search-form {
+    border: 0;
+    display: inline-flex;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: -2px 5px lightgray;
+    margin: 1%;
+}
 
+.search-form_txt {
+    border: none;
+    width: 200px;
+    outline: none;
+    font-size: 20px;
+    background-color: transparent;
+}
 
+.search-form_button {
+    border: none;
+    background-color: transparent;
+}
+
+.search-form_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+    height: 30px;
+    border-left: 1px solid black;
+    padding-left: 20px;
+}
