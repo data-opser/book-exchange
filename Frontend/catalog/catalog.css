@@ -1,0 +1,383 @@
+.container {
+    display: grid;
+    grid-template: 150px 6fr 300px / 1fr 10fr 1fr;
+}
+
+.blockheader {
+    grid-area: 1 / 1 / 2 / 4;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box; 
+}
+
+.blockmain {
+    grid-area: 2 / 1 / 3 / 4;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.blockfooter {
+    grid-area: 3 / 1 / 4 / 4;
+    background-color: #a37575;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+body {
+    margin: 0;
+    background-color: #FBF2E5;
+    color: #834C4C;
+}
+
+.logo {
+    margin: 0;
+    font-family: "Alegreya SC", serif;
+    font-weight: 400;
+    font-style: italic; 
+    font-size: 64px;
+    padding-left: 1%; 
+}
+
+h2 {
+    font-size: 64px;
+    margin: 0;
+}
+
+h3 {
+    font-size: 48px;
+}
+
+h2, h3{
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    font-size: 20px;
+    margin: 0;
+}
+
+footer p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+    "slnt" 0;
+    font-size: 40px;
+    margin: 0;
+}
+
+.profileU {
+    font-size: 32px;
+    padding: 1%; 
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+}
+.app img {
+    width: 150px;
+    height: 150px;
+    align-self: center;
+}
+
+.bell {
+    height: 30px;
+    width: 30px;
+}
+.profile_img {
+    height: 70px;
+    width: 70px;
+}
+
+.header_profile {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.header_profile p {
+    align-self: flex-end;
+}
+.header_profile_imges {
+    display: flex;
+    padding-right: 15px;
+}
+.header_profile_imges .bell {
+    align-self: center;
+    padding-right: 10px;
+}
+/* search */
+.search-form {
+    border: 0;
+    display: inline-flex;
+    padding: 0 20px;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: -2px 5px lightgray;
+    margin: 1%;
+}
+
+.search-form_txt {
+    border: none;
+    width: 200px;
+    outline: none;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+.search-form_button {
+    border: none;
+    background-color: transparent;
+}
+
+.search-form_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    cursor: pointer;
+    height: 30px;
+    border-left: 1px solid black;
+    padding-left: 20px;
+}
+
+
+/*dropdown for author*/
+.author_dropdown {
+
+    border: 3px solid #834C4C;
+    border-radius: 5%;
+    width: 100%;
+}
+.author_list, .author_list ul {
+    list-style: none;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.author_list li ul li {
+    padding: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.author_list li ul {
+    padding: 0;
+}
+
+.athor_text {
+    font-weight: bold;
+}
+
+.author_filter {
+    border: 1px solid #834C4C;
+    background-color: #FBF2E5;
+}
+
+/*dropdown for year*/
+.year_dropdown {
+
+    border: 3px solid #834C4C;
+    border-radius: 5%;
+    width: 100%;
+}
+.year_list, .year_list ul {
+    list-style: none;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.year_list li ul li {
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+.year_list li ul {
+    padding: 0;
+}
+
+.year_text {
+    font-weight: bold;
+}
+
+/*dropdown for genre*/
+.genre_dropdown {
+
+    border: 3px solid #834C4C;
+    border-radius: 5%;
+    width: 100%;
+}
+.genre_list, .genre_list ul {
+    list-style: none;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.genre_list li ul li {
+    padding: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.genre_list li ul {
+    padding: 0;
+}
+
+.genre_text {
+    font-weight: bold;
+}
+
+.genre_filter {
+    border: 1px solid #834C4C;
+    background-color: #FBF2E5;
+}
+/*checkbox*/
+input[type="checkbox"] {
+    border-radius: 10%;
+    position: relative;
+    height: 28px;
+    width: 28px;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    appearance: none;
+}
+input[type="checkbox"]:checked {
+    background-color: #834C4C;
+}
+
+.author_dropdown, .year_dropdown, .genre_dropdown {
+    margin-bottom: 2%;
+}
+
+
+/*trade*/
+.trade_text {
+    background-color: #834C4C;
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    border: 0;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filter_trade img {
+    width: 30px;
+    height: 30px;
+}
+
+.filter_trade img, .filter_trade p, .trade_book_choose {
+    cursor: pointer;
+}
+
+.filter_trade {
+    display: flex;
+}
+
+.trade_sorting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #834C4C;
+    color: white;
+    padding: 1%;
+    border-radius: 10px 10px 0 0;
+}
+.trader_left {
+    display: flex;
+    align-items: center;
+}
+.trader_left img {
+    padding-right: 15px;
+}
+.arrow {
+    justify-self: end;
+}
+
+
+.trade {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.book {
+    height: 300px;
+    width: 200px;
+    align-self: center;
+}
+.trade_arrow {
+    height: 170px;
+    width: 170px;
+    align-self: center;
+}
+.trade_book_choose {
+    height: 300px;
+    width: 200px;
+    align-self: center;
+    border-radius: 10px;
+    border: 2px solid #834C4C;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.trade_book_choose_magnyfyingglass {
+    width: 80%;
+}
+
+.trade_book {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 3px solid #834C4C;
+    border-radius: 0 0 10px 10px;
+}
+.catalog_right {
+    width: 60%;
+}
+.catalog_left {
+    width: 20%;
+}
+
+.trade_bookdescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
