@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template: 1fr 15fr 1fr / 1fr 7fr 1fr;
+    grid-template: 150px 6fr 300px / 1fr 7fr 1fr;
 }
 
 .blockheader {
@@ -19,6 +19,9 @@
     grid-area: 3 / 1 / 4 / 4;
     background-color: #a37575;
     color: black;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
 }
 
 body {
@@ -61,6 +64,7 @@ h2 {
 .join, .browse {
     font-size: 32px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 h3 {
@@ -100,7 +104,7 @@ p {
     border-radius: 13px;
 }
 
-.join, .browse, .discover, .library, .review, .book, .info, .app {
+.join, .browse, .discover, .library {
     display: inline-block;
 }
 
@@ -118,12 +122,36 @@ p {
 .book {
     height: 300px;
     width: 200px;
+    align-self: center;
 }
 
 .release {
     background-color: #E5C3C3;
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    margin-bottom: 50px;
+    border-radius: 0px 10px 0px 10px;
 }
 
+.release h3 {
+    margin-top: 20px;
+}
+
+.blockfooter p {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+}
+.app img {
+    width: 150px;
+    height: 150px;
+    align-self: center;
+}
 /* search */
 .search-form {
     border: 0;
