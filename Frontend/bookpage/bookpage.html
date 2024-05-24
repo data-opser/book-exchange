@@ -3,37 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Book Page</title>
+    <title>Enigma</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="bookpage.css">
 </head>
 <body class="container">
-    <header>
-        <h1 class="logo">Enigma</h1>
-        <div class="search"></div>
-        <p class="profileU">Log in</p>
+
+    <header class="blockheader">
+        <h1 class="logo">Enigma</h1>       
+        <div class="header_profile">
+            <div class="header_profile_imges">
+                <img class="bell" src="../resources/bell.png" alt="">
+                <img class="profile_img" src="../resources/profile_img.png" alt="">
+            </div>
+            
+            <p class="profileU">Profile</p>
+        </div>       
     </header>
-    <main>
-        <div class="photo column">
-            <img src="../resources/books/thus_spoke_zarathustra.png" alt="">
-            <h1 class="book_name">Thus Spoke Zarathustra</h1>
-        </div>
-        <div class="information column">
-            <p>information</p>
-        </div>
-        <div class="comments column">
-            <p>comments</p>
-        </div>
-    </main>
-    <footer>
+
+            <div class="block_left">
+
+                <div class="book_left_info">
+                    <img src="../resources/books/thus_spoke_zarathustra.png" alt="">
+                    <h3 class="book_name">Так казав Заратустра</h3>
+                    <div class="stars">
+                        <img src="../resources/yellow_star.png" alt="">
+                        <img src="../resources/yellow_star.png" alt="">
+                        <img src="../resources/yellow_star.png" alt="">
+                        <img src="../resources/yellow_star.png" alt="">
+                        <img src="../resources/star.png" alt="">
+                    </div>              
+                </div>
+
+                <div class="book_right_info">
+                    <h3>Author: F. Nietzsche</h3>
+                    <h3>Genre: philosophical novel</h3>
+                    <h3>Year of writing: 1896</h3>
+    
+                    <p>is a philosophical three-volume novel-treatise by Friedrich Nietzsche, written in 1883-1885, which revolves around the ideas of eternal repetition, the "death of God" and the prophecy of the superman. The main character is the Zoroastrian prophet Zarathustra, reinterpreted by Nietzsche, who returns to humanity with a sermon after a long seclusion in the mountains.</p>
+
+                    <button class="add_favorite_text">Add to favorites</button>
+                </div>
+            </div>
+            
+           <div class="block_right">
+                <h3>Comments (1)</h3>
+                <div class="user-rersonal_comment">
+                    <div class="user_comment">
+
+                        <div class="user_comment_left">
+                            <div>
+                                <img class="profile_img" src="../resources/profile_img.png" alt="">
+                                <p>Норм бук</p>
+                            </div>
+                            <img class="heart" src="../resources/heart.png" alt="">
+                        </div>
+
+                        <div class="user_comment_left">
+                            <div>
+                                <img class="profile_img" src="../resources/profile_img.png" alt="">
+                                <p>Норм бук</p>
+                            </div>
+                            
+                            <img class="heart" src="../resources/heart.png" alt="">
+                        </div>
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="personal_comment">
+                        <img class="profile_img" src="../resources/profile_img.png" alt="">
+                        <input type="text" placeholder="add a comment...">
+                    </div>
+                </div>
+                
+           </div> 
+        
+
+    <footer class="blockfooter">
         <div class="info">
             <h1 class="logo">Enigma</h1>
-            <h1>0-800-506-231</h1>
-            <h1>enigma@gmail.com</h1>
+            <p>0-800-506-231</p>
+            <p>enigma@gmail.com</p>
         </div>
         <div class="app">
-            <h1>Mobile application</h1>
+            <p>Мobile application</p>
             <img src="../resources/qr-code.png" alt="">
-        </div>        
+        </div>     
     </footer>
 </body>
 </html>
