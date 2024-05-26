@@ -380,3 +380,57 @@ input[type="checkbox"]:checked {
 .author_dropdown, .year_dropdown {
     margin-bottom: 8%;
 }
+
+/*media queries*/
+
+@media screen and (max-width: 1100px) {
+    .container {
+        display: grid;
+        grid-template: 50px 6fr 300px / 1fr 7fr 1fr;
+    }
+    .logo {
+        font-size: 32px;
+    }
+    .profileU {
+        font-size: 16px;
+    }
+
+    .search-form {
+        height: 25px;
+    }
+
+    .search-form_txt {
+        width: 100px;
+        font-size: 10px;
+    }
+
+    .search-form_img {
+        height: 15px;
+        padding-left: 10px;
+    }
+    .bell {
+        height: 15px;
+        width: 15px;
+    }
+    .profile_img {
+        height: 35px;
+        width: 35px;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+    h3 {
+        font-size: 24px;
+    }
+    p {
+        font-size: 10px;
+    }
+
+    .release {
+        margin: 7%;
+    }
+    .info {
+        align-self: center;
+    }
+}
