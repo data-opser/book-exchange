@@ -78,6 +78,7 @@ p {
     width: 98%;
 }
 .user_overflow {
+    font-size: x-large;
     position: relative;
     width: 15%;
     height: 10%;
@@ -89,8 +90,6 @@ p {
     left: 10px;
     background-color: #FBF2E5;
 }
-
-
 
 .login_form_bottom {
     display: flex;
@@ -111,11 +110,4 @@ p {
     cursor: pointer;
     width: 16%;
     margin-left: 1.2%;
-}
-
-a {
-    margin-top: 1%;
-    color: #834C4C;
-    text-decoration: none;
-    font-size: x-large
 }
