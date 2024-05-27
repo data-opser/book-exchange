@@ -350,4 +350,7 @@ footer p {
     .book_right_info p {
         margin-top: 5%;
     }
+    .app p {
+        text-align: center;
+    }
 }
