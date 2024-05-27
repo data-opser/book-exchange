@@ -144,7 +144,7 @@ footer p {
     position: relative;
     width: 80%;
     height: 3%;
-    margin-bottom: 5%;
+    margin-bottom: 7%;
 }
 .user_info1 {
     position: absolute;
@@ -227,7 +227,7 @@ footer p {
 .trade {
     margin-top: 1%;
     margin-bottom: 1%;
-    height: 32%;
+    height: 35%;
 }
 
 .book {
@@ -253,20 +253,171 @@ footer p {
 }
 
 .trade_book_choose_magnyfyingglass {
-    width: 80%;
+    max-width: 80%;
+}
+.trade_book_choose p {
+    text-align: center;
 }
 
 .trade_book {
     display: flex;
     justify-content: space-around;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding: 1%;
     border: 3px solid #834C4C;
     border-radius: 0 0 10px 10px;
+    
 }
 .trade_bookdescription {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-left: 2%;
 }
 /*-------------------------------------------*/
+/* media queries */
+@media screen and (max-width: 1100px) {   
+    .container {
+        grid-template: 50px 45% 45% 200px / 2fr 4fr 1fr;
+    }
+    .blockheader {
+        grid-area: 1 / 1 / 2 / 4;
+    }
+    
+    .block_left {
+        grid-area: 2 / 1 / 3 / 4;  
+        border: 0;
+        margin-bottom: 0;
+    }
+    
+    .block_right {
+        grid-area: 3 / 1 / 4 / 4;
+    }
+    
+    .blockfooter {
+        grid-area: 4 / 1 / 5 / 4;       
+    }
+
+    .block_left img {
+        width: 50%;
+        margin-bottom: 10%;
+    }
+
+    .user_overflow {
+        width: 80%;
+        height: 3%;
+        margin-bottom: 9%;
+    }
+
+    .edit_button img {
+        width: 5%;
+    }
+    
+    h3 {
+        font-size: 30px;
+    }
+
+    .want p {
+        font-size: 15px;
+    }
+
+    .trade_book img {
+        max-width: 30%;
+        height: 100%;
+    }
+
+    .trade_arrow {
+        display: none;
+    }
+    
+     
+    .trade_bookdescription p {
+        font-size: 15px;
+    }
+
+    
+
+    .trade_book_choose p {
+        font-size: 15px;
+        padding: 5%;
+    }
+
+    .trade_book_choose_magnyfyingglass {
+        max-width: 50%;
+        height: 100%;
+    }
+    .trade {
+        height: 25%;
+        margin-right: 3%;
+    }
+    .trade_book {
+        height: 70%;
+    }
+    .trade_book_choose {
+        height: 100%;
+        width: 20%;
+
+    }
+    .book {
+        width: 20%;
+    }
+    .edit_button {
+        height: 4%;
+    }
+    .edit_button img {
+        margin: 0; 
+    }
+    .logo {
+        font-size: 32px;
+    }
+    .profileU {
+        font-size: 16px;
+    }
+    .bell {
+        height: 15px;
+        width: 15px;
+    }
+    .profile_img {
+        height: 35px;
+        width: 35px;
+    }
+    footer p {
+        font-size: 20px;
+    }  
+    .app img {
+        height: 75px;
+        width: 75px;
+    } 
+    
+}
+
+@media screen and (max-width: 500px) { 
+    .container {
+        grid-template: 50px 37% 47% 200px / 2fr 4fr 1fr;
+    } 
+    .user_overflow {
+        margin-bottom: 11%;
+    }
+
+    .info {
+        align-self: center;
+    }
+    .app img {
+        width: 75px;
+        height: 75px;
+        align-self: center;
+    }
+    .trade {
+        height: 25%;
+    }
+    .want p {
+        font-size: 10px;
+    }
+    .trade_book_choose p {
+        font-size: 10px;
+        padding: 5%;
+    }
+    .app p {
+        text-align: center;
+    }
+
+} 
