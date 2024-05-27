@@ -249,7 +249,7 @@ p {
         align-self: center;
     }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width < 600px) {
     .blockheader {
         width: 100vh;
     }
