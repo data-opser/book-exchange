@@ -111,3 +111,8 @@ p {
         background-color: #ded6cb;
     }
 }
+@media screen and (max-width: 600px) {
+    .login_form_header h3 {
+        font-size: 18px;
+    }
+}

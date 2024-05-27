@@ -188,6 +188,7 @@ a {
 .author_filter {
     border: 1px solid #834C4C;
     background-color: #FBF2E5;
+    width: 90%;
 }
 
 /*dropdown for year*/
@@ -253,6 +254,7 @@ a {
 .genre_filter {
     border: 1px solid #834C4C;
     background-color: #FBF2E5;
+    width: 90%;
 }
 /*checkbox*/
 input[type="checkbox"] {
@@ -351,7 +353,9 @@ input[type="checkbox"]:checked {
     align-items: center;
     justify-content: space-around;
 }
-
+.trade_book_choose p {
+    text-align: center;
+}
 .trade_book_choose_magnyfyingglass {
     width: 80%;
 }
@@ -359,8 +363,7 @@ input[type="checkbox"]:checked {
 .trade_book {
     display: flex;
     justify-content: space-around;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    padding: 1%;
     border: 3px solid #834C4C;
     border-radius: 0 0 10px 10px;
 }
@@ -375,18 +378,42 @@ input[type="checkbox"]:checked {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    margin-left: 1%;
 }
 
 .author_dropdown, .year_dropdown {
     margin-bottom: 8%;
 }
-
+.media_filter {
+    display: none;
+}
 /*media queries*/
 
 @media screen and (max-width: 1100px) {
     .container {
         display: grid;
-        grid-template: 50px 6fr 300px / 1fr 7fr 1fr;
+        grid-template: 50px 1fr 1fr 200px / 1fr 7fr 1fr;
+    }
+    .blockmain {
+        grid-area: 2 / 2 / 4 / 3;
+        flex-direction: column-reverse;
+        margin-bottom: 2%;
+        height: 100%;
+    }
+    .catalog_left {
+        grid-area: 3 / 2 / 4 / 3;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        height: 50%;
+    }
+    .catalog_right {
+        grid-area: 2 / 2 / 3 / 3;
+        width: 100%;
+        height: 70%;
+    }
+    .blockfooter {
+        grid-area: 4 / 1 / 5 / 4;
     }
     .logo {
         font-size: 32px;
@@ -433,4 +460,85 @@ input[type="checkbox"]:checked {
     .info {
         align-self: center;
     }
+    .trade_text {
+        padding: 10px;
+        font-size: 13px;
+    }
+    .filter_trade img {
+        width: 15px;
+        height: 15px;
+    }
+    .trade_book img {
+        max-width: 30%;
+        height: 100%;
+    }
+
+    .trade_arrow {
+        display: none;
+    }
+    
+     
+    .trade_bookdescription p {
+        font-size: 15px;
+    }
+
+    
+
+    .trade_book_choose p {
+        font-size: 15px;
+        padding: 5%;
+    }
+
+    .trade_book_choose_magnyfyingglass {
+        max-width: 50%;
+        height: 100%;
+    }
+    .trade {
+        height: 80%;
+    }
+    .trade_book {
+        height: 70%;
+    }
+    .trade_book_choose {
+        height: 100%;
+        width: 20%;
+
+    }
+    .book {
+        width: 20%;
+    }
+
+
+    footer p {
+        font-size: 20px;
+    }  
+    .app img {
+        height: 75px;
+        width: 75px;
+    } 
+
+
+    .author_dropdown, .year_dropdown, .genre_dropdown {
+        width: 30%;
+        height: 95%;
+    }
+    .author_list, .genre_list, .year_list {
+        padding: 0;
+        margin-top: 2%;
+    }
+    .athor_text, .year_text, .genre_text {
+        text-align: center;
+    }
+    .media_filter {
+        display: block;
+    }
+    a {
+        text-decoration: none;
+        color: white;
+    }
 }
+@media screen and (max-width: 500px) {
+    .app p {
+        text-align: center;
+    }
+} 
