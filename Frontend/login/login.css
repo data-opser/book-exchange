@@ -77,9 +77,9 @@ p {
 }
 .user_overflow {
     position: relative;
-    width: 15%;
+    width: 20%;
     height: 10%;
-    margin-bottom: 2%;
+    margin-bottom: 3%;
 }
 .user_info1 {
     position: absolute;
@@ -107,13 +107,52 @@ p {
     font-size: 26px;
     font-weight: bold;
     cursor: pointer;
-    width: 16%;
-    margin-left: 1.2%;
+    width: 21.5%;
+    margin-left: 1.7%;
 }
 
-a {
+.login_form_bottom a {
     margin-top: 1%;
     color: #834C4C;
     text-decoration: none;
-    font-size: large
+    font-size: x-large
+}
+
+@media screen and (max-width: 1300px) {
+    .user_overflow {
+        width: 30%;
+        margin-bottom: 4%;
+    }
+
+    .login_form_header img {
+        width: 4.5%;
+        height: 7.5%;
+    }
+
+    .add_favorite_text {        
+        font-size: 26px;
+        width: 32.4%;
+        margin-left: 2.1%;        
+        margin-bottom: 2%;
+    }
+    
+}
+
+@media screen and (max-width: 700px) {
+    .user_overflow {
+        width: 50%;
+        margin-bottom: 7%;
+    }
+
+    .login_form_header img {
+        width: 6%;
+        height: 10%;
+    }
+
+    .add_favorite_text {        
+        font-size: 20px;
+        width: 53.5%;
+        margin-left: 4%;        
+        margin-bottom: 2%;
+    }
 }
