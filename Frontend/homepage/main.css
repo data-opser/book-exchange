@@ -40,6 +40,20 @@ body {
     padding-left: 1%; 
 }
 
+a {
+    text-decoration: none;
+}
+
+.blockheader a {
+    width: 6%;
+    color:#834C4C;
+    margin-top: 1%;
+}
+
+.blockheader a:visited {
+    color:#834C4C;   
+}
+
 h2 {
     font-size: 64px;
     margin: 0;
@@ -60,6 +74,14 @@ h2 {
     border: #834C4C 3px solid;
     border-radius: 10px;
     margin-left: 2%;
+}
+
+.browse a {
+    color:#834C4C;
+}
+
+.join a {
+    color: white;
 }
 
 .join, .browse {
