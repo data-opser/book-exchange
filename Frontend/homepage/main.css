@@ -45,7 +45,7 @@ a {
 }
 
 .blockheader a {
-    width: 6%;
+    width: 10%;
     color:#834C4C;
     margin-top: 1%;
 }
@@ -270,10 +270,19 @@ p {
         height: 75px;
         align-self: center;
     }
-}
-@media screen and (max-width < 600px) {
-    .blockheader {
-        width: 100vh;
+    .blockheader a {
+        width: 7%;
     }
-
+}
+@media screen and (max-width: 670px) {
+    .blockheader a {
+        width: 13%;
+    }
+    .app p {
+        text-align: center;
+    }
+    .book {
+        height: 200px;
+        width: 120px;
+    }
 }

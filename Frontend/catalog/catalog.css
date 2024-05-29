@@ -4,6 +4,7 @@
 }
 
 .blockheader {
+    position: relative;
     grid-area: 1 / 1 / 2 / 4;
     margin: 0;
     display: flex;
@@ -98,7 +99,14 @@ footer p {
     height: 70px;
     width: 70px;
 }
-
+.crosslink_to_profile {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    width: 75px;
+    height: 75px;
+}
 .header_profile {
     display: flex;
     flex-direction: column;
@@ -108,6 +116,7 @@ footer p {
     align-self: flex-end;
 }
 .header_profile_imges {
+    position: relative;
     display: flex;
     padding-right: 15px;
 }
@@ -343,6 +352,7 @@ input[type="checkbox"]:checked {
     align-self: center;
 }
 .trade_book_choose {
+    position: relative;
     height: 300px;
     width: 200px;
     align-self: center;
@@ -353,6 +363,20 @@ input[type="checkbox"]:checked {
     align-items: center;
     justify-content: space-around;
 }
+.crosslink_to_chooseboook {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.crosslink_to_main {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 70px;
+    width: 230px;
+}
 .trade_book_choose p {
     text-align: center;
 }
@@ -361,6 +385,7 @@ input[type="checkbox"]:checked {
 }
 
 .trade_book {
+    position: relative;
     display: flex;
     justify-content: space-around;
     padding: 1%;
@@ -375,6 +400,7 @@ input[type="checkbox"]:checked {
 }
 
 .trade_bookdescription {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -443,7 +469,14 @@ input[type="checkbox"]:checked {
         height: 35px;
         width: 35px;
     }
-
+    .crosslink_to_profile {
+        display: block;
+        position: absolute;
+        right: 25px;
+        top: 10px;
+        width: 35px;
+        height: 35px;
+    }
     h2 {
         font-size: 32px;
     }
@@ -505,9 +538,9 @@ input[type="checkbox"]:checked {
 
     }
     .book {
-        width: 20%;
+        width: 100%;
     }
-
+    
 
     footer p {
         font-size: 20px;
@@ -536,6 +569,15 @@ input[type="checkbox"]:checked {
         text-decoration: none;
         color: white;
     }
+    .crosslink_to_main {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 35px;
+        width: 110px;
+    }
+
 }
 @media screen and (max-width: 500px) {
     .app p {
