@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Mobile" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/dark_maroon</item>
+    </style>
+    <style name="Theme.Mobile" parent="Base.Theme.Mobile" />
+    
+    <style name="Background">
+        <item name="android:background">@color/bg_light</item>
+    </style>
+    <style name="NavHeader">
+        <item name="android:background">@color/bg_light</item>
+    </style>
+    <style name="Text">
+        <item name="android:textColor">@color/text_light</item>
+    </style>
+    <style name="Button">
+        <item name="android:backgroundTint">@color/button_bgTint_light</item>
+        <item name="android:textColor">@color/button_text_light</item>
+    </style>
+    <style name="EditText">
+        <item name="android:backgroundTint">@color/text_light</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textColorHint">@color/text_light</item>
+    </style>
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/lite_maroon</item>
+        <item name="titleTextColor">@color/white</item>
+    </style>
+    <style name="NavigationView">
+        <item name="android:background">@color/bg_light</item>
+        <item name="titleTextColor">@color/white</item>
+        <item name="itemIconTint">@color/lite_maroon</item>
+        <item name="itemTextColor">@color/lite_maroon</item>
+    </style>
+</resources>
