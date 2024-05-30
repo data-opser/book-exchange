@@ -41,10 +41,9 @@
             android:layout_marginStart="47dp"
             android:drawablePadding="8dp"
             android:gravity="center"
-            style="@style/Text"
+            style="@style/TextImagePhone"
             android:text="@string/phone_info"
-            android:textSize="20sp"
-            app:drawableStartCompat="@drawable/phone" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textViewPhoneNumber"
@@ -65,10 +64,9 @@
             android:height="40dp"
             android:drawablePadding="8dp"
             android:gravity="center"
-            style="@style/Text"
+            style="@style/TextImageEmail"
             android:text="@string/email_info"
-            android:textSize="20sp"
-            app:drawableStartCompat="@drawable/email" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textViewEmailAddress"
@@ -88,10 +86,9 @@
             android:layout_marginTop="30dp"
             android:drawablePadding="8dp"
             android:gravity="center"
-            style="@style/Text"
+            style="@style/TextImageClock"
             android:text="@string/work_hours_info"
-            android:textSize="20sp"
-            app:drawableStartCompat="@drawable/clock" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/textViewHours"

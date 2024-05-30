@@ -34,4 +34,17 @@
         <item name="itemIconTint">@color/lite_maroon</item>
         <item name="itemTextColor">@color/lite_maroon</item>
     </style>
+
+    <style name="TextImagePhone">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="drawableStartCompat">@drawable/phone</item>
+    </style>
+    <style name="TextImageEmail">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="drawableStartCompat">@drawable/email</item>
+    </style>
+    <style name="TextImageClock">
+        <item name="android:textColor">@color/text_light</item>
+        <item name="drawableStartCompat">@drawable/clock</item>
+    </style>
 </resources>

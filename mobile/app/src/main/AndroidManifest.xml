@@ -14,7 +14,6 @@
         android:windowBackground="@drawable/ic_launcher_background"
         tools:targetApi="31">
 
-
         <activity
             android:name=".DrawerLayoutActivity"
             android:exported="false"

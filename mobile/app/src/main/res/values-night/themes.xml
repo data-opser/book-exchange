@@ -33,6 +33,19 @@
         <item name="itemIconTint">@color/text_night</item>
         <item name="itemTextColor">@color/text_night</item>
     </style>
+
+    <style name="TextImagePhone">
+        <item name="android:textColor">@color/text_night</item>
+        <item name="drawableStartCompat">@drawable/phone_night</item>
+    </style>
+    <style name="TextImageEmail">
+        <item name="android:textColor">@color/text_night</item>
+        <item name="drawableStartCompat">@drawable/email_night</item>
+    </style>
+    <style name="TextImageClock">
+        <item name="android:textColor">@color/text_night</item>
+        <item name="drawableStartCompat">@drawable/clock_night</item>
+    </style>
 </resources>
 
 
