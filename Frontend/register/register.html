@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="register.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
-
+<body>
     <div class="login_form">
         <div class="login_form_header">
             <div class="spacer"></div>
-            <h3>Log in</h3>
+            <h3>Register</h3>
             <div class="spacer"></div>
             <a class="crosslink_to_login" href="../login/login.html"></a>
             <img src="../resources/white_cross.png" alt="">
@@ -31,31 +31,65 @@
             <h1 class="logo">Enigma</h1>
             <div class="user_overflow">
                 <p class="user_info1">Login</p>
-                <input type="text" class="user_name">
+                <input type="text" class="user_name" id="login">
             </div>
             <div class="user_overflow">
                 <p class="user_info1">Email</p>
-                <input type="email" class="user_name">
+                <input type="email" class="user_name" id="email">
             </div>
             <div class="user_overflow">
                 <p class="user_info1">Name</p>
-                <input type="text" class="user_name">
+                <input type="text" class="user_name" id="name">
             </div>
             <div class="user_overflow">
                 <p class="user_info1">Last name (optional)</p>
-                <input type="text" class="user_name">
-            </div>            
+                <input type="text" class="user_name" id="lastname">
+            </div>
             <div class="user_overflow">
                 <p class="user_info1">Age (optional)</p>
-                <input type="number" class="user_name">
-            </div>            
+                <input type="number" class="user_name" id="age">
+            </div>
             <div class="user_overflow">
                 <p class="user_info1">Password</p>
-                <input type="text" class="user_name">
+                <input type="password" class="user_name" id="password">
             </div>
-            <button class="add_favorite_text">Register</button>
+            <p id="register_error" class="error_message" style="color: red;"></p>
+            <button class="add_favorite_text" onclick="registerUser()">Register</button>
         </div>
-        
     </div>
 
+    <script>
+        function registerUser() {
+            const login = document.getElementById('login').value;
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const lastname = document.getElementById('lastname').value;
+            const age = document.getElementById('age').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ login, email, name, lastname, age, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('register_error').innerText = 'Error: ' + data.error;
+                } else {
+                    document.getElementById('register_error').innerText = '';
+                    alert('Success: ' + data.message);
+                    // Redirect to the login page after successful registration
+                    window.location.href = '../login/login.html';
+                }
+            })
+            .catch(error => {
+                document.getElementById('register_error').innerText = 'Error: ' + error;
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
 </html>
