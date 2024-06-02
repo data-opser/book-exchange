@@ -19,4 +19,5 @@
     <string name="work_hours_info">Working hours</string>
     <string name="work_hours">Mon-Sun: from 8:00 to 22:00</string>
     <string name="dark_theme">Dark theme</string>
+    <string name="notification">Notification</string>
 </resources>

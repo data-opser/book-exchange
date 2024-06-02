@@ -1,21 +1,33 @@
 package com.vladislav.mobile;
 
+import static androidx.core.app.NotificationCompat.PRIORITY_HIGH;
+
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 public class SettingsFragment extends Fragment {
+
     DrawerLayoutActivity activity;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    SwitchCompat switchNotification;
+
+    private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,41 +41,58 @@ public class SettingsFragment extends Fragment {
 
         activity = (DrawerLayoutActivity) getActivity();
         SwitchCompat switchTheme = view.findViewById(R.id.switch_theme);
+        switchNotification = view.findViewById(R.id.switch_notification);
         sharedPreferences = activity.getSharedPreferences("MODE", Context.MODE_PRIVATE);
 
-        switchTheme.setChecked(activity.isNight);
+        editor = sharedPreferences.edit();
+        switchTheme.setChecked(sharedPreferences.getBoolean("night", false));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS)
+                    != (sharedPreferences.getBoolean("notification", false) ? 1 : 0)) {
+                editor.putBoolean("night", ContextCompat.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS) == 1);
+            }
+        }
 
-        switchTheme.setOnClickListener(new View.OnClickListener() {
+        switchNotification.setChecked(sharedPreferences.getBoolean("notification", false));
+
+        switchTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                editor = sharedPreferences.edit();
-                if (activity.isNight) {
-                    editor.putBoolean("night", false);
-                } else {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     editor.putBoolean("night", true);
+                } else {
+                    editor.putBoolean("night", false);
                 }
                 editor.apply();
-
                 activity.setTheme();
             }
         });
-
-
-        /*switchTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                editor = sharedPreferences.edit();
                 if (isChecked) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    activity.isNight = true;
-                    editor.putBoolean("night", true);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE_POST_NOTIFICATIONS);
+                        } else {
+                            editor.putBoolean("notification", true);
+                        }
+                    }
                 } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    activity.isNight = false;
-                    editor.putBoolean("night", false);
+                    editor.putBoolean("notification", false);
                 }
                 editor.apply();
             }
-        });*/
+        });
+    }
+
+    public void showDialog(String textHead, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(textHead)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Okay", null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

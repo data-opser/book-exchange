@@ -83,4 +83,5 @@ public class LaunchActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.panel_light));
         }
     }
+
 }
