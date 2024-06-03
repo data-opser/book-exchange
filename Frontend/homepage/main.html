@@ -27,9 +27,10 @@
             <input class="search-form_txt" type="text" placeholder="search a book...">
             <button class="search-form_button"><img class="search-form_img" src="/resources/magnyfying_glass.png" alt=""></button>
         </div>
-        <a href="/login/login.html">
+        <a id="login-link" href="/login/login.html">
             <p class="profileU">Log in</p>
-        </a>        
+        </a>
+        <img id="profile-image" src="/resources/profile_placeholder.png" alt="Profile" style="display: none; cursor: pointer;" onclick="redirectToProfile()">
     </header>
 
     <main class="blockmain">
@@ -91,7 +92,23 @@
                     });
                 })
                 .catch(error => console.error('Error:', error));
+
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                fetch(`/api/users/${userId}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        document.getElementById('login-link').style.display = 'none';
+                        document.getElementById('profile-image').src = `/resources/profiles/${user.profile_image}`;
+                        document.getElementById('profile-image').style.display = 'block';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         });
+
+        function redirectToProfile() {
+            window.location.href = '/profile/profile.html';
+        }
     </script>
 </body>
 </html>

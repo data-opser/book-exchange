@@ -11,6 +11,7 @@ class User(db.Model):
     name = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50))
     age = db.Column(db.Integer)
+    profile_image = db.Column(db.String(256), nullable=True, default='profile_placeholder.png')
 
     reviews = db.relationship('Review', backref='user', lazy='dynamic', cascade='all, delete-orphan')
     libraries = db.relationship('Library', backref='user', lazy='dynamic', cascade='all, delete-orphan')
