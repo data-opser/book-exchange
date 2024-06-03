@@ -19,10 +19,14 @@
         <item name="android:backgroundTint">@color/button_bgTint_light</item>
         <item name="android:textColor">@color/button_text_light</item>
     </style>
+    <style name="Button_System">
+        <item name="android:backgroundTint">@color/button_system_light</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
     <style name="EditText">
         <item name="android:backgroundTint">@color/text_light</item>
         <item name="android:textColor">@color/text_light</item>
-        <item name="android:textColorHint">@color/text_light</item>
+        <item name="android:textColorHint">@color/text_hint_light</item>
     </style>
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/lite_maroon</item>

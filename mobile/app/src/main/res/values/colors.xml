@@ -15,5 +15,8 @@
     <color name="panel_night">#2C3B45</color>
     <color name="lite_maroon">#FFA58A84</color>
     <color name="dark_maroon">#FF8F5A5A</color>
-    <color name="text_hint">#FF546E7A</color>
+    <color name="text_hint_light">#FFC8C6C6</color>
+    <color name="text_hint_night">#5F6468</color>
+    <color name="button_system_light">#FFC8C6C6</color>
+    <color name="button_system_night">#FFD4E5F4</color>
 </resources>

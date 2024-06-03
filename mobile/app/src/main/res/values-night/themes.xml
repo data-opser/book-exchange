@@ -15,10 +15,14 @@
         <item name="android:backgroundTint">@color/button_bgTint_night</item>
         <item name="android:textColor">@color/button_text_night</item>
     </style>
+    <style name="Button_System">
+        <item name="android:backgroundTint">@color/button_bgTint_night</item>
+        <item name="android:textColor">@color/button_text_night</item>
+    </style>
     <style name="EditText">
         <item name="android:backgroundTint">@color/text_night</item>
         <item name="android:textColor">@color/text_night</item>
-        <item name="android:textColorHint">@color/text_night</item>
+        <item name="android:textColorHint">@color/text_hint_night</item>
     </style>
     <style name="NavHeader">
         <item name="android:background">@color/bg_night</item>

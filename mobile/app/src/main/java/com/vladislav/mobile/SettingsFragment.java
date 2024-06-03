@@ -1,7 +1,5 @@
 package com.vladislav.mobile;
 
-import static androidx.core.app.NotificationCompat.PRIORITY_HIGH;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,13 +10,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 public class SettingsFragment extends Fragment {
 
@@ -26,7 +25,6 @@ public class SettingsFragment extends Fragment {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     SwitchCompat switchNotification;
-
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
 
     @Override
@@ -39,6 +37,7 @@ public class SettingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Button buttonChangePassword = view.findViewById(R.id.change_password_button);
         activity = (DrawerLayoutActivity) getActivity();
         SwitchCompat switchTheme = view.findViewById(R.id.switch_theme);
         switchNotification = view.findViewById(R.id.switch_notification);
@@ -82,6 +81,15 @@ public class SettingsFragment extends Fragment {
                     editor.putBoolean("notification", false);
                 }
                 editor.apply();
+            }
+        });
+        buttonChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, new ChangePasswordFragment(), "CHANGEPASSWORD_FRAGMENT");
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
     }

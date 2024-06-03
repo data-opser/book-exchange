@@ -57,9 +57,8 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        if (menuItem.getItemId() == R.id.nav_home) {
-            setNewFragment(new HomeFragment(), "HOME_FRAGMENT");
-        } else if (menuItem.getItemId() == R.id.nav_settings) {
+        getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if (menuItem.getItemId() == R.id.nav_settings) {
             settingsFragment = new SettingsFragment();
             setNewFragment(settingsFragment, "SETTINGS_FRAGMENT");
         } else if (menuItem.getItemId() == R.id.nav_support) {
@@ -75,20 +74,32 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if(!(currentFragment instanceof HomeFragment)){
-            setNewFragment(new HomeFragment(), "HOME_FRAGMENT");
+        } else if(fragmentManager.getBackStackEntryCount() > 0){
+            super.onBackPressed();
+            Fragment newCurrentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (newCurrentFragment instanceof HomeFragment) {
+                navigationView.setCheckedItem(R.id.nav_home);
+            } else if (newCurrentFragment instanceof SettingsFragment) {
+                navigationView.setCheckedItem(R.id.nav_settings);
+            } else if (newCurrentFragment instanceof SupportFragment) {
+                navigationView.setCheckedItem(R.id.nav_support);
+            }
         } else{
             super.onBackPressed();
         }
     }
 
     public void setNewFragment(Fragment fragment, String tag) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragment, tag);
-        ft.commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     public void Exit() {

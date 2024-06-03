@@ -50,15 +50,14 @@ public class LaunchActivity extends AppCompatActivity {
 
             Intent intent2 = new Intent(LaunchActivity.this, DrawerLayoutActivity.class);///////////// ВИДАЛИТИ!!!!
             startActivity(intent2); ///////////// ВИДАЛИТИ!!!!
+
             if(login.isEmpty() || password.isEmpty()){
                 Toast.makeText(LaunchActivity.this, "Field is empty!", Toast.LENGTH_LONG).show();
-            }
-            else if(false){
+            } else if(false){
                 Toast.makeText(LaunchActivity.this, "Wrong email or password!", Toast.LENGTH_LONG).show();
-            }
-            else{
-                //Intent intent = new Intent(LaunchActivity.this, DrawerLayoutActivity.class);
-                //startActivity(intent);
+            } else{
+                Intent intent = new Intent(LaunchActivity.this, DrawerLayoutActivity.class);
+                startActivity(intent);
             }
         });
     }
