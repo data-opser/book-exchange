@@ -6,14 +6,23 @@
     </style>
 
     <style name="Background">
-        <item name="android:background">@color/bg_night</item>
+        <item name="android:background">@color/background_night</item>
     </style>
     <style name="Text">
+        <item name="android:textColor">@color/text_night</item>
+    </style>
+    <style name="Text2">
+        <item name="android:textColor">@color/text_night</item>
+    </style>
+    <style name="Text3">
         <item name="android:textColor">@color/text_night</item>
     </style>
     <style name="Button">
         <item name="android:backgroundTint">@color/button_bgTint_night</item>
         <item name="android:textColor">@color/button_text_night</item>
+    </style>
+    <style name="Button_Exchange">
+        <item name="android:src">@drawable/exchange_night</item>
     </style>
     <style name="Button_System">
         <item name="android:backgroundTint">@color/button_bgTint_night</item>
@@ -25,14 +34,14 @@
         <item name="android:textColorHint">@color/text_hint_night</item>
     </style>
     <style name="NavHeader">
-        <item name="android:background">@color/bg_night</item>
+        <item name="android:background">@color/background_night</item>
     </style>
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">@color/dark_blue</item>
         <item name="titleTextColor">@color/text_night</item>
     </style>
     <style name="NavigationView">
-        <item name="android:background">@color/bg_night</item>
+        <item name="android:background">@color/background_night</item>
         <item name="titleTextColor">@color/text_night</item>
         <item name="itemIconTint">@color/text_night</item>
         <item name="itemTextColor">@color/text_night</item>
@@ -49,6 +58,12 @@
     <style name="TextImageClock">
         <item name="android:textColor">@color/text_night</item>
         <item name="drawableStartCompat">@drawable/clock_night</item>
+    </style>
+    <style name="Request">
+        <item name="android:background">@drawable/frame_request_night</item>
+    </style>
+    <style name="bg_head">
+        <item name="android:background">@drawable/rectangle_bg_night</item>
     </style>
 </resources>
 
