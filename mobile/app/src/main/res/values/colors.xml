@@ -3,17 +3,22 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_blue">#131F29</color>
-    <color name="bg_light">#FFFFF4E4</color>
-    <color name="bg_night">#FF192730</color>
+    <color name="background_light">#FFFFF4E4</color>
+    <color name="background_night">#FF192730</color>
     <color name="text_light">#FF000000</color>
+    <color name="text_light_gray">#FF79726a</color>
     <color name="text_night">#FFD4E5F4</color>
     <color name="button_bgTint_light">#FF8F5A5A</color>
     <color name="button_bgTint_night">#FF374955</color>
     <color name="button_text_light">#FFFFFFFF</color>
     <color name="button_text_night">#FFD4E5F4</color>
-    <color name="panel_light">#836D68</color>
-    <color name="panel_night">#2C3B45</color>
+    <color name="panel_light">#FF836D68</color>
+    <color name="panel_night">#FF2C3B45</color>
     <color name="lite_maroon">#FFA58A84</color>
     <color name="dark_maroon">#FF8F5A5A</color>
-    <color name="text_hint">#FF546E7A</color>
+    <color name="text_hint_light">#FFC8C6C6</color>
+    <color name="text_hint_night">#FF5F6468</color>
+    <color name="button_system_light">#FFC8C6C6</color>
+    <color name="button_system_night">#FFD4E5F4</color>
+    <color name="border_request">#FF884c4c</color>
 </resources>

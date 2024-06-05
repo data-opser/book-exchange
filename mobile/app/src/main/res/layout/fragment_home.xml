@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,15 +10,128 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="216dp"
-        android:layout_marginEnd="206dp"
-        style="@style/Text"
-        android:text="TextView"
-        android:textSize="24sp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:text="@string/home"
+        android:textSize="30sp" />
+
+    <!-- Контейнер з закругленими краями для шапки та контенту -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="5dp"
+        android:orientation="vertical"
+        style="@style/bg_head"
+        android:padding="0dp">
+
+        <!-- Верхня шапка з фото та ім'ям -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/bg_head"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:layout_margin="0dp">
+
+            <!-- Фото відправника -->
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user" />
+
+            <!-- Ім'я відправника -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/user"
+                style="@style/Text3"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Нижня частина з інформацією про книгу та кнопкою -->
+        <LinearLayout
+            style="@style/Request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_margin="0dp">
+
+            <!-- Ліва частина зображення -->
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/content_dscrp"
+                android:src="@drawable/book" />
+
+            <!-- Центральна частина з інформацією про книгу -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/book_info"
+                    android:textSize="16sp"
+                    style="@style/Text2"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    style="@style/Text2"
+                    android:text="@string/book_genre" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_year"
+                    android:textSize="18sp"
+                    style="@style/Text2"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Права частина з кнопкою вибору -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/content_dscrp"
+                    android:scaleType="centerCrop"
+                    style="@style/Button_Exchange" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    style="@style/Text2"
+                    android:text="@string/exchange" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
