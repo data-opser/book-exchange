@@ -1,8 +1,10 @@
 flask
 flask-sqlalchemy
-sqlalchemy
 flask-migrate
 flask-wtf
-python-dotenv
 flask-login
+flask_cors
+sqlalchemy
+python-dotenv
+pyodbc
 werkzeug
