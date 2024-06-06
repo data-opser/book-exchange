@@ -1,11 +1,21 @@
 from flask import Blueprint, request, jsonify, current_app, session
 import os
 from api.app.models import User, Book
-from api.app import db
+from api.app import db, static_folder_path
 from werkzeug.utils import secure_filename
-
+from flask import render_template_string
 
 bp = Blueprint('api', __name__)
+
+
+@bp.route('/')
+def serve_home_with_clear_storage():
+    with open(os.path.join(static_folder_path, 'homepage', 'main.html')) as file:
+        content = file.read()
+    # Injecting script to clear local storage
+    script = "<script>localStorage.clear();</script>"
+    content_with_script = content.replace("</head>", f"{script}</head>")
+    return render_template_string(content_with_script)
 
 
 @bp.route('/register', methods=['POST'])
@@ -51,6 +61,11 @@ def login():
         return jsonify({'error': 'Invalid email or password'}), 400
 
 
+@bp.route('/logout', methods=['POST'])
+def logout():
+    session.clear()  # Clear the session data
+    return jsonify({'message': 'Logout successful'}), 200
+
 @bp.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get(user_id)
@@ -66,6 +81,26 @@ def get_user(user_id):
         'profile_image': user.profile_image
     })
 
+
+@bp.route('/profile', methods=['GET'])
+def get_profile():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'User ID is required'}), 400
+
+    user = User.query.get(user_id)
+    if user:
+        profile_image_path = f'/resources/profiles/{user.login}.png'
+        print(profile_image_path)
+        if not os.path.exists(os.path.join(static_folder_path, profile_image_path)):
+            profile_image_path = '/resources/profiles/profile_placeholder.png'
+        return jsonify({
+            'profile_image': profile_image_path,
+            'name': user.name,
+            'lastname': user.lastname,
+            'age': user.age
+        }), 200
+    return jsonify({'error': 'User not found'}), 404
 
 
 @bp.route('/user-profile', methods=['GET'])
@@ -89,6 +124,29 @@ def get_last_releases():
         'logo': book.logo,
         'release_date': book.release_date.strftime('%Y-%m-%d')
     } for book in last_releases])
+
+
+@bp.route('/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.form
+    profile_image = request.files.get('profile_image')
+
+    user.name = data.get('name', user.name)
+    user.lastname = data.get('lastname', user.lastname)
+    user.age = data.get('age', user.age)
+
+    if profile_image:
+        filename = secure_filename(f"{user.login}.png")
+        profile_image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+        user.profile_image = filename
+
+    db.session.commit()
+    return jsonify({'message': 'User updated successfully'})
+
 
 
 def register_routes(app):

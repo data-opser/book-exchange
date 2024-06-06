@@ -7,18 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="editprofile.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
-
+<body>
     <div class="login_form">
         <div class="login_form_header">
             <div class="spacer"></div>
@@ -30,26 +28,97 @@
         <div class="login_form_bottom">
             <h1 class="logo">Enigma</h1>
             <div class="block_camera">
-                <img class="camera" src="../resources/camera.png" alt="">
+                <img id="profile_image" class="camera" src="../resources/camera.png" alt="">
+                <input type="file" id="profile_image_input" style="display: none;">
             </div>
-            
             <div class="user_overflow">
                 <p class="user_info1">Name</p>
-                <input type="text" class="user_name">
+                <input type="text" class="user_name" id="name">
             </div>
             <div class="user_overflow">
                 <p class="user_info1">Last Name</p>
-                <input type="email" class="user_name">
+                <input type="text" class="user_name" id="lastname">
             </div>
             <div class="user_overflow">
                 <p class="user_info1">Age</p>
-                <input type="text" class="user_name">
+                <input type="text" class="user_name" id="age">
             </div>
-            
-            <button class="add_favorite_text">Save changes</button>
-            <button class="add_favorite_text">Cancel</button> 
+            <button class="add_favorite_text" onclick="saveChanges()">Save changes</button>
+            <button class="add_favorite_text" onclick="cancelChanges()">Cancel</button>
         </div>
-        
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                fetch(`/api/profile?user_id=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error:', data.error);
+                        } else {
+                            document.getElementById('profile_image').src = data.profile_image || '../resources/camera.png';
+                            document.getElementById('name').value = data.name || '';
+                            document.getElementById('lastname').value = data.lastname || '';
+                            document.getElementById('age').value = data.age || '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                console.error('User ID not found');
+            }
+
+            document.getElementById('profile_image').addEventListener('click', () => {
+                document.getElementById('profile_image_input').click();
+            });
+
+            document.getElementById('profile_image_input').addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profile_image').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+        function saveChanges() {
+            const userId = localStorage.getItem('user_id');
+            const name = document.getElementById('name').value;
+            const lastname = document.getElementById('lastname').value;
+            const age = document.getElementById('age').value;
+            const profileImage = document.getElementById('profile_image_input').files[0];
+
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('lastname', lastname);
+            formData.append('age', age);
+            if (profileImage) {
+                formData.append('profile_image', profileImage);
+            }
+
+            fetch(`/api/users/${userId}`, {
+                method: 'PUT',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error:', data.error);
+                } else {
+                    alert('Profile updated successfully');
+                    window.location.href = '../profile/profile.html';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function cancelChanges() {
+            window.location.href = '../profile/profile.html';
+        }
+    </script>
+</body>
 </html>

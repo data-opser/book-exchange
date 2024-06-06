@@ -73,7 +73,26 @@
     </footer>
 
     <script>
+        function logoutUser() {
+            fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                localStorage.removeItem('user_id');
+                window.location.href = '../login/login.html';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+
+            // localStorage.removeItem('user_id');
+
             fetch('/api/last-releases')
                 .then(response => response.json())
                 .then(data => {

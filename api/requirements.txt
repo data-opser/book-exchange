@@ -5,3 +5,4 @@ flask-migrate
 flask-wtf
 python-dotenv
 flask-login
+werkzeug
