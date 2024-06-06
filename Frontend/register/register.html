@@ -18,44 +18,80 @@
     <link rel="stylesheet" href="register.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
-
+<body>
     <div class="login_form">
         <div class="login_form_header">
-            <div class="spacer"></div>
-            <h3>Log in</h3>
-            <div class="spacer"></div>
-            <a class="crosslink_to_login" href="../login/login.html"></a>
-            <img src="../resources/white_cross.png" alt="">
+            <h3>Register</h3>
+            <a class="crosslink_to_main" href="../homepage/main.html">
+                <img src="../resources/white_cross.png" alt="">
+            </a>
         </div>
         <div class="login_form_bottom">
             <h1 class="logo">Enigma</h1>
-            <div class="user_overflow">
-                <p class="user_info1">Login</p>
-                <input type="text" class="user_name">
-            </div>
-            <div class="user_overflow">
-                <p class="user_info1">Email</p>
-                <input type="email" class="user_name">
-            </div>
-            <div class="user_overflow">
-                <p class="user_info1">Name</p>
-                <input type="text" class="user_name">
-            </div>
-            <div class="user_overflow">
-                <p class="user_info1">Last name (optional)</p>
-                <input type="text" class="user_name">
-            </div>            
-            <div class="user_overflow">
-                <p class="user_info1">Age (optional)</p>
-                <input type="number" class="user_name">
-            </div>            
-            <div class="user_overflow">
-                <p class="user_info1">Password</p>
-                <input type="text" class="user_name">
-            </div>
-            <button class="add_favorite_text">Register</button>
+            <form id="registerForm" enctype="multipart/form-data">
+                <div class="user_overflow">
+                    <p class="user_info1">Login</p>
+                    <input type="text" class="user_name" id="login" name="login" required>
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Email</p>
+                    <input type="email" class="user_name" id="email" name="email" required>
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Name</p>
+                    <input type="text" class="user_name" id="name" name="name" required>
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Last name (optional)</p>
+                    <input type="text" class="user_name" id="lastname" name="lastname">
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Age (optional)</p>
+                    <input type="number" class="user_name" id="age" name="age">
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Password</p>
+                    <input type="password" class="user_name" id="password" name="password" required>
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Confirm Password</p>
+                    <input type="password" class="user_name" id="confirm_password" name="confirm_password" required>
+                </div>
+                <div class="user_overflow">
+                    <p class="user_info1">Profile Image (optional)</p>
+                    <input type="file" class="user_name" id="profile_image" name="profile_image" accept="image/*">
+                </div>
+                <p id="register_error" class="error_message"></p>
+                <button type="button" class="add_favorite_text" onclick="registerUser()">Register</button>
+            </form>
         </div>
-        
     </div>
 
+    <script>
+        function registerUser() {
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);
+
+            fetch('/api/register', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('register_error').innerText = 'Error: ' + data.error;
+                } else {
+                    document.getElementById('register_error').innerText = '';
+                    alert('Success: ' + data.message);
+                    // Redirect to the login page after successful registration
+                    window.location.href = '../login/login.html';
+                }
+            })
+            .catch(error => {
+                document.getElementById('register_error').innerText = 'Error: ' + error;
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
 </html>
