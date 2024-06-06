@@ -122,6 +122,12 @@ p {
     padding: 1%; 
 }
 
+#profile-image {
+    display: none; 
+    cursor: pointer;
+    border-radius: 50%;
+}
+
 .library {
     margin-left: 2%;
     border-radius: 13px;
