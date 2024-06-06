@@ -22,8 +22,7 @@
         <h1 class="logo">Enigma</h1>
         <div class="header_profile">
             <div class="header_profile_imges">
-                <img class="bell" src="../resources/bell.png" alt="">
-                <button class="logout_button" onclick="logoutUser()">Logout</button>
+                <button class="logout_button" onclick="logoutUser()">Log out</button>
             </div>
         </div>
     </header>
@@ -48,7 +47,7 @@
     </div>
     <div class="block_right">
         <h3>Want:</h3>
-        <div class="want">
+        <div class="want1">
             <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
             <p>"The Dream Daughter" Diane Chamberlain</p>
         </div>
@@ -114,16 +113,20 @@
                     .then(response => response.json())
                     .then(books => {
                         const userBooksDiv = document.getElementById('user_books');
-                        books.forEach(book => {
+                        for (let i = 0; i < 1; i++) {
+                            books.forEach(book => {
                             const bookDiv = document.createElement('div');
                             bookDiv.className = 'book_item';
                             bookDiv.innerHTML = `
-                                <img class="book_logo" src="../resources/books/${book.logo}" alt="${book.title}">
+                                <div class="want">
+                                <img class="want_img" src="../resources/books/${book.logo}" alt="${book.title}">
                                 <p>${book.title}</p>
                                 <p>${book.author}</p>
+                                </div>
                             `;
                             userBooksDiv.appendChild(bookDiv);
                         });
+                        }
                     })
                     .catch(error => console.error('Error:', error));
             } else {
