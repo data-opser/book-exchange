@@ -4,8 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -25,29 +29,36 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
     private DrawerLayout drawerLayout;
     private SettingsFragment settingsFragment;
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
-    SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
+    private TextView textViewUserNameSurname;
+    private ImageView imageViewUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTheme();
         SharedPreferences sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        setTheme();
 
         setContentView(R.layout.activity_drawerlayout);
 
-        settingsFragment = new SettingsFragment();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        editor = sharedPreferences.edit();
-
         drawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        View headerView = navigationView.getHeaderView(0);
+        textViewUserNameSurname = headerView.findViewById(R.id.textView_UserNameSurname);
+        imageViewUser = headerView.findViewById(R.id.imageView_User);
+
+        settingsFragment = new SettingsFragment();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
@@ -55,6 +66,10 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         }
     }
 
+    private void loadInfo(String nameSurname, Drawable userPhoto){
+        textViewUserNameSurname.setText(nameSurname);
+        imageViewUser.setImageDrawable(userPhoto);
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
