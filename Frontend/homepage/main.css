@@ -117,11 +117,6 @@ p {
     margin: 0;
 }
 
-.profileU {
-    font-size: 32px;
-    padding: 1%; 
-}
-
 #profile-image {
     display: none; 
     cursor: pointer;
@@ -282,6 +277,12 @@ p {
     .blockheader a {
         width: 7%;
     }
+
+    #profile-image { 
+        padding-top: 0;
+        height: 50px;
+        width: 50px;
+    }
 }
 @media screen and (max-width: 670px) {
     .blockheader a {
@@ -293,5 +294,10 @@ p {
     .book {
         height: 200px;
         width: 120px;
+    }    
+
+    #profile-image { 
+        height: 30px;
+        width: 30px;
     }
 }

@@ -47,33 +47,45 @@
     </div>
     <div class="block_right">
         <h3>Want:</h3>
-        <div class="want1">
-            <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-            <p>"The Dream Daughter" Diane Chamberlain</p>
+        <div class="books_container">
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
         </div>
         <h3>Offers:</h3>
-        <div class="trade">
-            <div class="trader">
-                <div class="trader_left">
-                    <img class="profile_img" src="../resources/profile_img.png" alt="">
-                    <p>Dmytro</p>
-                </div>
-                <p>&bigtriangledown;</p>
-            </div>
-            <div class="trade_book">
-                <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">
-                <div class="trade_bookdescription">
-                    <div>
-                        <p>"The Dream Daughter"</p>
-                        <p>Diane Chamberlain</p>
+        <div class="trades">
+            <div class="trade">
+                <div class="trader">
+                    <div class="trader_left">
+                        <img class="profile_img" src="../resources/profile_img.png" alt="">
+                        <p>Dmytro</p>
                     </div>
-                    <p>Fiction</p>
-                    <p>2022</p>
+                    <p>&bigtriangledown;</p>
                 </div>
-                <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
-                <div class="trade_book_choose">
-                    <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                    <p>Choose your book</p>
+                <div class="trade_book">
+                    <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">
+                    <div class="trade_bookdescription">
+                        <div>
+                            <p>"The Dream Daughter"</p>
+                            <p>Diane Chamberlain</p>
+                        </div>
+                        <p>Fiction</p>
+                        <p>2022</p>
+                    </div>
+                    <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
+                    <div class="trade_book_choose">
+                        <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                        <p>Choose your book</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,20 +125,16 @@
                     .then(response => response.json())
                     .then(books => {
                         const userBooksDiv = document.getElementById('user_books');
-                        for (let i = 0; i < 1; i++) {
-                            books.forEach(book => {
+                        books.forEach(book => {
                             const bookDiv = document.createElement('div');
                             bookDiv.className = 'book_item';
-                            bookDiv.innerHTML = `
-                                <div class="want">
-                                <img class="want_img" src="../resources/books/${book.logo}" alt="${book.title}">
+                            bookDiv.innerHTML = `                                
+                                <img class="book_img" src="../resources/books/${book.logo}" alt="${book.title}">
                                 <p>${book.title}</p>
-                                <p>${book.author}</p>
-                                </div>
+                                <p>${book.author}</p>                                
                             `;
                             userBooksDiv.appendChild(bookDiv);
                         });
-                        }
                     })
                     .catch(error => console.error('Error:', error));
             } else {
