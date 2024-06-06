@@ -301,6 +301,11 @@ input[type="checkbox"]:checked {
     height: 30px;
 }
 
+.trade_text a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .filter_trade img, .filter_trade p, .trade_book_choose {
     cursor: pointer;
 }
