@@ -125,7 +125,10 @@ p {
 #profile-image {
     display: none; 
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 50%;    
+    height: 70px;
+    width: 70px;
+    margin: 10px;
 }
 
 .library {
