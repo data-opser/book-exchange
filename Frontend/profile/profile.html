@@ -79,10 +79,7 @@
             </div>
         </div>
         <h3>Have:</h3>
-        <div class="want">
-            <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-            <p>"The Dream Daughter" Diane Chamberlain</p>
-        </div>
+        <div id="user_books" class="books_container"></div>
     </div>
     <footer class="blockfooter">
         <div class="info">
@@ -96,32 +93,59 @@
         </div>
     </footer>
     <script>
-    function logoutUser() {
-        // Clear local storage and redirect to login page
-        localStorage.clear();
-        window.location.href = '../homepage/main.html';
-    }
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                fetch(`/api/users/${userId}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        if (user.error) {
+                            console.error('Error:', user.error);
+                        } else {
+                            document.getElementById('profile_image').src = `../resources/profiles/${user.profile_image}`;
+                            document.getElementById('profile_name').innerText = user.name || '';
+                            document.getElementById('profile_lastname').innerText = user.lastname || '';
+                            document.getElementById('profile_age').innerText = user.age || '';
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const userId = localStorage.getItem('user_id');
-        if (userId) {
-            fetch(`/api/users/${userId}`)
-                .then(response => response.json())
-                .then(user => {
-                    if (user.error) {
-                        console.error('Error:', user.error);
-                    } else {
-                        document.getElementById('profile_image').src = `../resources/profiles/${user.profile_image}`;
-                        document.getElementById('profile_name').innerText = user.name || '';
-                        document.getElementById('profile_lastname').innerText = user.lastname || '';
-                        document.getElementById('profile_age').innerText = user.age || '';
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            console.error('User ID not found');
+                fetch(`/api/users/${userId}/library`)
+                    .then(response => response.json())
+                    .then(books => {
+                        const userBooksDiv = document.getElementById('user_books');
+                        books.forEach(book => {
+                            const bookDiv = document.createElement('div');
+                            bookDiv.className = 'book_item';
+                            bookDiv.innerHTML = `
+                                <img class="book_logo" src="../resources/books/${book.logo}" alt="${book.title}">
+                                <p>${book.title}</p>
+                                <p>${book.author}</p>
+                            `;
+                            userBooksDiv.appendChild(bookDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                console.error('User ID not found');
+            }
+        });
+
+        function logoutUser() {
+            fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                localStorage.removeItem('user_id');
+                window.location.href = '../login/login.html';
+            })
+            .catch(error => console.error('Error:', error));
         }
-    });
     </script>
 </body>
 </html>

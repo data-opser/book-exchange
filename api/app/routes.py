@@ -4,6 +4,7 @@ from api.app.models import User, Book
 from api.app import db, static_folder_path
 from werkzeug.utils import secure_filename
 from flask import render_template_string
+from sqlalchemy.sql import text
 
 bp = Blueprint('api', __name__)
 
@@ -66,6 +67,7 @@ def logout():
     session.clear()  # Clear the session data
     return jsonify({'message': 'Logout successful'}), 200
 
+
 @bp.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get(user_id)
@@ -115,17 +117,6 @@ def user_profile():
     return jsonify({'logged_in': False})
 
 
-@bp.route('/last-releases', methods=['GET'])
-def get_last_releases():
-    last_releases = Book.query.order_by(Book.release_date.desc()).limit(3).all()
-    return jsonify([{
-        'title': book.title,
-        'description': book.description,
-        'logo': book.logo,
-        'release_date': book.release_date.strftime('%Y-%m-%d')
-    } for book in last_releases])
-
-
 @bp.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.get(user_id)
@@ -147,6 +138,25 @@ def update_user(user_id):
     db.session.commit()
     return jsonify({'message': 'User updated successfully'})
 
+
+@bp.route('/last-releases', methods=['GET'])
+def get_last_releases():
+    last_releases = Book.query.order_by(Book.release_date.desc()).limit(3).all()
+    return jsonify([{
+        'title': book.title,
+        'description': book.description,
+        'logo': book.logo,
+        'release_date': book.release_date.strftime('%Y-%m-%d')
+    } for book in last_releases])
+
+
+@bp.route('/users/<int:user_id>/library', methods=['GET'])
+def get_user_library(user_id):
+    query = text("SELECT b.logo, b.title, a.name FROM [user] u JOIN library l ON u.user_id = l.user_id JOIN book b ON l.book_id = b.book_id JOIN author_book ab ON b.book_id = ab.book_id JOIN author a ON ab.author_id = a.author_id WHERE u.user_id = :user")
+    result = db.session.execute(query, {'user': user_id})
+
+    books = [{'logo': row[0], 'title': row[1], 'author': row[2]} for row in result]
+    return jsonify(books)
 
 
 def register_routes(app):

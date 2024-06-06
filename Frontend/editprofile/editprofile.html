@@ -28,7 +28,7 @@
         <div class="login_form_bottom">
             <h1 class="logo">Enigma</h1>
             <div class="block_camera">
-                <img id="profile_image" class="camera" src="../resources/camera.png" alt="">
+                <img id="profile_image" class="camera" src="../resources/profiles/profile_placeholder.png" alt="Profile Image">
                 <input type="file" id="profile_image_input" style="display: none;">
             </div>
             <div class="user_overflow">
@@ -52,13 +52,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const userId = localStorage.getItem('user_id');
             if (userId) {
-                fetch(`/api/profile?user_id=${userId}`)
+                fetch(`/api/users/${userId}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.error) {
                             console.error('Error:', data.error);
                         } else {
-                            document.getElementById('profile_image').src = data.profile_image || '../resources/camera.png';
+                            document.getElementById('profile_image').src = `../resources/profiles/${data.profile_image}` || '../resources/profile_placeholder.png';
                             document.getElementById('name').value = data.name || '';
                             document.getElementById('lastname').value = data.lastname || '';
                             document.getElementById('age').value = data.age || '';
