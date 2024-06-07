@@ -163,6 +163,9 @@ footer p {
     padding-left: 20px;
 }
 
+.author_dropdown, .year_dropdown, .genre_dropdown {
+    margin-bottom: 3%;
+}
 
 /*dropdown for author*/
 .author_dropdown {
@@ -232,14 +235,12 @@ a {
 
 /*dropdown for genre*/
 .genre_dropdown {
-
     border: 3px solid #834C4C;
     border-radius: 5%;
     width: 100%;
 }
 .genre_list, .genre_list ul {
     list-style: none;
-
 }
 
 a {
@@ -279,9 +280,9 @@ input[type="checkbox"]:checked {
     background-color: #834C4C;
 }
 
-.author_dropdown, .year_dropdown, .genre_dropdown {
+/* .author_dropdown, .year_dropdown, .genre_dropdown {
     margin-bottom: 2%;
-}
+} */
 
 
 /*trade*/
@@ -412,8 +413,8 @@ input[type="checkbox"]:checked {
     margin-left: 1%;
 }
 
-.author_dropdown, .year_dropdown {
-    margin-bottom: 8%;
+.author_dropdown, .year_dropdown {    
+    height: auto;
 }
 .media_filter {
     display: none;
@@ -558,7 +559,6 @@ input[type="checkbox"]:checked {
 
     .author_dropdown, .year_dropdown, .genre_dropdown {
         width: 30%;
-        height: 95%;
     }
     .author_list, .genre_list, .year_list {
         padding: 0;
