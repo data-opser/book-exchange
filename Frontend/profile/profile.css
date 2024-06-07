@@ -299,7 +299,7 @@ footer p {
 /* media queries */
 @media screen and (max-width: 1100px) {   
     .container {
-        grid-template: 50px 30% 1fr 200px / 2fr 4fr 1fr;
+        grid-template: 50px 40% 1fr 200px / 2fr 4fr 1fr;
     }
     .blockheader {
         grid-area: 1 / 1 / 2 / 4;
@@ -427,6 +427,9 @@ footer p {
     } 
     .user_overflow {
         margin-bottom: 11%;
+    }
+    .edit_button {
+        height: 100%;
     }
 
     .info {
