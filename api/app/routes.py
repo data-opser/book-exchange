@@ -159,5 +159,31 @@ def get_user_library(user_id):
     return jsonify(books)
 
 
+@bp.route('/active-trades', methods=['GET'])
+def get_active_trades():
+    query = text("""
+        SELECT e.exchange_id, e.book_id_offered, e.book_id_requested, e.user_id, u.name as user_name, u.profile_image, b1.title as book_offered_title, b1.logo as book_offered_logo, b2.title as book_requested_title, b2.logo as book_requested_logo
+        FROM exchange e
+        JOIN user u ON e.user_id = u.user_id
+        JOIN book b1 ON e.book_id_offered = b1.book_id
+        JOIN book b2 ON e.book_id_requested = b2.book_id
+        WHERE e.is_complete = 0
+    """)
+    result = db.session.execute(query)
+    trades = [
+        {
+            'exchange_id': row['exchange_id'],
+            'user_name': row['user_name'],
+            'user_profile_image': row['profile_image'],
+            'book_offered_title': row['book_offered_title'],
+            'book_offered_logo': row['book_offered_logo'],
+            'book_requested_title': row['book_requested_title'],
+            'book_requested_logo': row['book_requested_logo']
+        }
+        for row in result
+    ]
+    return jsonify(trades)
+
+
 def register_routes(app):
     app.register_blueprint(bp, url_prefix='/api')
