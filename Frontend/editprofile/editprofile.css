@@ -81,7 +81,7 @@ p {
 .user_overflow {
     position: relative;
     width: 20%;
-    height: 7%;
+    height: 5%;
     margin-bottom: 3%;
 }
 .user_info1 {
@@ -119,6 +119,7 @@ p {
     cursor: pointer;
     width: 21.5%;
     margin-left: 1.7%;
+    margin-bottom: 10px;
     border: 3px solid #834C4C;
 }
 .add_favorite_text:hover {
@@ -150,6 +151,13 @@ p {
     height: 90%;
     border-radius: 10%; /* Ensure the image itself is circular */
 }
+
+#profile_image {
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+}
+
 @media screen and (max-width: 1300px) {
     .user_overflow {
         width: 30%;

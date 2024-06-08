@@ -22,8 +22,7 @@
         <h1 class="logo">Enigma</h1>
         <div class="header_profile">
             <div class="header_profile_imges">
-                <img class="bell" src="../resources/bell.png" alt="">
-                <button class="logout_button" onclick="logoutUser()">Logout</button>
+                <button class="logout_button" onclick="logoutUser()">Log out</button>
             </div>
         </div>
     </header>
@@ -42,39 +41,55 @@
             <p class="user_name" id="profile_age">28</p>
         </div>
         <div class="edit_button">
-            <button><a href="../editprofile/editprofile.html">Click to edit</a></button>
+            <button>
+                <a href="../editprofile/editprofile.html">
+                    Click to edit
+                </a>                
+            </button>
             <img src="../resources/pencil.png" alt="">
         </div>
     </div>
     <div class="block_right">
         <h3>Want:</h3>
-        <div class="want">
-            <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-            <p>"The Dream Daughter" Diane Chamberlain</p>
+        <div class="books_container">
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
+            <div class="book_item">
+                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
+                <p>"The Dream Daughter" Diane Chamberlain</p>
+            </div>
         </div>
         <h3>Offers:</h3>
-        <div class="trade">
-            <div class="trader">
-                <div class="trader_left">
-                    <img class="profile_img" src="../resources/profile_img.png" alt="">
-                    <p>Dmytro</p>
-                </div>
-                <p>&bigtriangledown;</p>
-            </div>
-            <div class="trade_book">
-                <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">
-                <div class="trade_bookdescription">
-                    <div>
-                        <p>"The Dream Daughter"</p>
-                        <p>Diane Chamberlain</p>
+        <div class="trades">
+            <div class="trade">
+                <div class="trader">
+                    <div class="trader_left">
+                        <img class="profile_img" src="../resources/profile_img.png" alt="">
+                        <p>Dmytro</p>
                     </div>
-                    <p>Fiction</p>
-                    <p>2022</p>
+                    <p>&bigtriangledown;</p>
                 </div>
-                <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
-                <div class="trade_book_choose">
-                    <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                    <p>Choose your book</p>
+                <div class="trade_book">
+                    <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">
+                    <div class="trade_bookdescription">
+                        <div>
+                            <p>"The Dream Daughter"</p>
+                            <p>Diane Chamberlain</p>
+                        </div>
+                        <p>Fiction</p>
+                        <p>2022</p>
+                    </div>
+                    <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
+                    <div class="trade_book_choose">
+                        <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                        <p>Choose your book</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,7 +103,7 @@
             <p>enigma@gmail.com</p>
         </div>
         <div class="app">
-            <p>Мobile application</p>
+            <p>Mobile application</p>
             <img src="../resources/QR-code.png" alt="">
         </div>
     </footer>
@@ -117,10 +132,10 @@
                         books.forEach(book => {
                             const bookDiv = document.createElement('div');
                             bookDiv.className = 'book_item';
-                            bookDiv.innerHTML = `
-                                <img class="book_logo" src="../resources/books/${book.logo}" alt="${book.title}">
+                            bookDiv.innerHTML = `                                
+                                <img class="book_img" src="../resources/books/${book.logo}" alt="${book.title}">
                                 <p>${book.title}</p>
-                                <p>${book.author}</p>
+                                <p>${book.author}</p>                                
                             `;
                             userBooksDiv.appendChild(bookDiv);
                         });

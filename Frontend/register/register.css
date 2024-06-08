@@ -46,6 +46,7 @@ p {
 .login_form {
     height: 100%;
 }
+
 .login_form_header {
     position: relative;
     background-color: #834C4C;
@@ -69,6 +70,13 @@ p {
     cursor: pointer;
 }
 
+#registerForm {
+    align-self: center;
+    width: 30%;
+    display: flex;    
+    flex-wrap: wrap;
+}
+
 .user_name {
     border: 1px solid #834C4C;
     padding: 5%;
@@ -80,9 +88,9 @@ p {
 }
 .user_overflow {
     position: relative;
-    width: 20%;
-    height: 7%;
-    margin-bottom: 3%;
+    width: 100%;
+    margin-bottom: 15%;
+    height: 30px;
 }
 .user_info1 {
     position: absolute;
@@ -105,7 +113,6 @@ p {
     flex-direction: column;
     align-items: center;
     height: 80%;
-
 }
 
 .add_favorite_text {
@@ -116,9 +123,8 @@ p {
     border: 0;
     font-size: 26px;
     font-weight: bold;
-    cursor: pointer;
-    width: 21.5%;
-    margin-left: 1.7%;
+    cursor: pointer;    
+    width: 100%;    
 }
 
 .login_form_bottom a {
@@ -129,9 +135,8 @@ p {
 }
 
 @media screen and (max-width: 1300px) {
-    .user_overflow {
-        width: 30%;
-        margin-bottom: 4%;
+    #registerForm {
+        width: 40%;
     }
 
     .login_form_header img {
@@ -140,9 +145,6 @@ p {
 
     .add_favorite_text {        
         font-size: 26px;
-        width: 32.4%;
-        margin-left: 2.1%;        
-        margin-bottom: 2%;
     }
     .crosslink_to_login {
         display: block;
@@ -155,9 +157,8 @@ p {
 }
 
 @media screen and (max-width: 700px) {
-    .user_overflow {
-        width: 50%;
-        margin-bottom: 7%;
+    #registerForm {
+        width: 70%;
     }
 
     .login_form_header img {
@@ -166,9 +167,7 @@ p {
 
     .add_favorite_text {        
         font-size: 20px;
-        width: 53.5%;
-        margin-left: 4%;        
-        margin-bottom: 2%;
+        width: 100%;
     }
     .crosslink_to_login {
         display: block;
