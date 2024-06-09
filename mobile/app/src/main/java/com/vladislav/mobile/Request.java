@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -127,7 +128,23 @@ public class Request {
         });
     }
 
+    public void bookRequestData(Activity activity, double userID, HomeFragment.BookRequestCallback callbackJson){
+        JSONObject json = new JSONObject();
+        json.put("user_id", userID);
+        request.requestBook((int)userID).enqueue(new Callback<List<JSONObject>>() {
+            @Override
+            public void onResponse(Call<List<JSONObject>> call, Response<List<JSONObject>> response) {
+                if (response.isSuccessful()) {
+                    callbackJson.onBookRequestReceived(response.body());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<List<JSONObject>> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
 
 
 

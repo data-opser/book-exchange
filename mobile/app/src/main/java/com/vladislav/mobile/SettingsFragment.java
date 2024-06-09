@@ -21,15 +21,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class SettingsFragment extends Fragment {
 
-    DrawerLayoutActivity activity;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private DrawerLayoutActivity activity;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     SwitchCompat switchNotification;
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activity = (DrawerLayoutActivity) getActivity();
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -38,7 +39,6 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button buttonChangePassword = view.findViewById(R.id.change_password_button);
-        activity = (DrawerLayoutActivity) getActivity();
         SwitchCompat switchTheme = view.findViewById(R.id.switch_theme);
         switchNotification = view.findViewById(R.id.switch_notification);
         sharedPreferences = activity.getSharedPreferences("MODE", Context.MODE_PRIVATE);

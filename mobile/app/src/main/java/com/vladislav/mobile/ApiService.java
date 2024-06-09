@@ -23,8 +23,8 @@ public interface ApiService {
     @GET
     Call<ResponseBody> downloadImage(@Url String fileUrl);
 
-    @GET("api/")
-    Call<JSONObject> request(@Url String fileUrl);
+    @GET("api/users/{user_id}/active_offers")
+    Call<List<JSONObject>> requestBook(@Path("user_id") int userID);
 
     @POST("api/login")
     @Headers("Content-Type: application/json;")

@@ -70,14 +70,16 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         toggle.syncState();
 
         Intent intent = getIntent();
-        double userID = intent.getDoubleExtra("user_id", -1);
+        int userID = (int)intent.getDoubleExtra("user_id", -1);
 
         request.getUserData(this, userID, new UserDataCallback() {
             @Override
             public void onUserDataReceived(JSONObject userData) {
                 jsonUserData = userData;
-
-                System.out.println(jsonUserData.get("name"));
+                if (savedInstanceState == null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(userID)).commit();
+                    navigationView.setCheckedItem(R.id.nav_home);
+                }
                 TextView nameSurname = navigationView.findViewById(R.id.textView_NameSurname);
                 ImageView photo = navigationView.findViewById(R.id.imageView_User);
 
@@ -92,11 +94,6 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(DrawerLayoutActivity.this, error, Toast.LENGTH_LONG).show();
             }
         });
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
     }
     public void setImage(ImageView imageView){
         request.getImage(this, jsonUserData.get("profile_image").toString(), imageView);
