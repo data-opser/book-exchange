@@ -7,14 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="bookpage.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
@@ -22,75 +20,63 @@
 
     <header class="blockheader">
         <a class="crosslink_to_main" href="../homepage/main.html"></a>
-        <h1 class="logo">Enigma</h1>       
+        <h1 class="logo">Enigma</h1>
         <div class="header_profile">
             <div class="header_profile_imges">
                 <img class="bell" src="../resources/bell.png" alt="">
                 <a class="crosslink_to_profile" href="../profile/profile.html"></a>
-                <img class="profile_img" src="../resources/profile_img.png" alt="">
+                <img id="profile-image" src="/resources/profile_placeholder.png" alt="Profile" onclick="redirectToProfile()">
+                <p id="current-user-name"></p>
             </div>
-        </div>       
+        </div>
     </header>
 
-            <div class="block_left">
+    <div class="block_left">
+        <div class="book_left_info">
+            <img id="book-logo" src="../resources/books/book_placeholder.png" alt="">
+            <h3 id="book-title" class="book_name">Book Title</h3>
+            <div class="stars" id="book-rating">
+                <!-- Stars will be dynamically generated -->
+            </div>
+        </div>
 
-                <div class="book_left_info">
-                    <img src="../resources/books/thus_spoke_zarathustra.png" alt="">            
-                    <h3 class="book_name">Так казав Заратустра</h3>
-                    <div class="stars">
-                        <img src="../resources/yellow_star.png" alt="">
-                        <img src="../resources/yellow_star.png" alt="">
-                        <img src="../resources/yellow_star.png" alt="">
-                        <img src="../resources/yellow_star.png" alt="">
-                        <img src="../resources/star.png" alt="">
-                    </div>              
+        <div class="book_right_info">
+            <h3 id="book-author">Author: </h3>
+            <h3 id="book-genre">Genre: </h3>
+            <h3 id="book-year">Year of writing: </h3>
+            <h3 id="book-rating-text">Rating: </h3>
+            <p id="book-description">Description</p>
+            <button class="add_favorite_text">Add to favorites</button>
+        </div>
+    </div>
+
+    <div class="block_right">
+        <h3>Comments (1)</h3>
+        <div class="user-rersonal_comment">
+            <div class="user_comment">
+                <div class="user_comment_left">
+                    <div>
+                        <img class="profile_img" src="../resources/profile_img.png" alt="">
+                        <p>Норм бук</p>
+                    </div>
+                    <img class="heart" src="../resources/heart.png" alt="">
                 </div>
 
-                <div class="book_right_info">
-                    <h3>Author: F. Nietzsche</h3>
-                    <h3>Genre: philosophical novel</h3>
-                    <h3>Year of writing: 1896</h3>
-    
-                    <p>is a philosophical three-volume novel-treatise by Friedrich Nietzsche, written in 1883-1885, which revolves around the ideas of eternal repetition, the "death of God" and the prophecy of the superman. The main character is the Zoroastrian prophet Zarathustra, reinterpreted by Nietzsche, who returns to humanity with a sermon after a long seclusion in the mountains.</p>
-
-                    <button class="add_favorite_text">Add to favorites</button>
+                <div class="user_comment_left">
+                    <div>
+                        <img class="profile_img" src="../resources/profile_img.png" alt="">
+                        <p>Норм бук</p>
+                    </div>
+                    <img class="heart" src="../resources/heart.png" alt="">
                 </div>
             </div>
-            
-           <div class="block_right">
-                <h3>Comments (1)</h3>
-                <div class="user-rersonal_comment">
-                    <div class="user_comment">
 
-                        <div class="user_comment_left">
-                            <div>
-                                <img class="profile_img" src="../resources/profile_img.png" alt="">
-                                <p>Норм бук</p>
-                            </div>
-                            <img class="heart" src="../resources/heart.png" alt="">
-                        </div>
-
-                        <div class="user_comment_left">
-                            <div>
-                                <img class="profile_img" src="../resources/profile_img.png" alt="">
-                                <p>Норм бук</p>
-                            </div>
-                            
-                            <img class="heart" src="../resources/heart.png" alt="">
-                        </div>
-                        
-                        
-                        
-                    </div>
-                    
-                    <div class="personal_comment">
-                        <img class="profile_img" src="../resources/profile_img.png" alt="">
-                        <input type="text" placeholder="add a comment...">
-                    </div>
-                </div>
-                
-           </div> 
-        
+            <div class="personal_comment">
+                <img class="profile_img" src="../resources/profile_img.png" alt="">
+                <input type="text" placeholder="add a comment...">
+            </div>
+        </div>
+    </div>
 
     <footer class="blockfooter">
         <div class="info">
@@ -101,7 +87,95 @@
         <div class="app">
             <p>Mobile application</p>
             <img src="../resources/qr-code.png" alt="">
-        </div>     
+        </div>
     </footer>
+
+    <script>
+        let currentRating = 0;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get('book_id');
+            const userId = localStorage.getItem('user_id');
+
+            if (bookId) {
+                fetch(`/api/books/${bookId}?user_id=${userId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('book-logo').src = `/resources/books/${data.logo}`;
+                        document.getElementById('book-title').innerText = data.title;
+                        document.getElementById('book-author').innerText = `Author: ${data.author}`;
+                        document.getElementById('book-genre').innerText = `Genre: ${data.genre}`;
+                        document.getElementById('book-year').innerText = `Year of writing: ${data.year}`;
+                        document.getElementById('book-rating-text').innerText = `Rating: ${data.rating}`;
+                        document.getElementById('book-description').innerText = data.description;
+
+                        currentRating = data.user_rating || 0;
+                        setRatingStars(currentRating);
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                console.error('Book ID not found');
+            }
+
+            // Fetch current user data
+            if (userId) {
+                fetch(`/api/users/${userId}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        document.getElementById('profile-image').src = `/resources/profiles/${user.profile_image}`;
+                        document.getElementById('profile-image').style.display = 'block';
+                        document.getElementById('current-user-name').innerText = user.login;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+
+        function setRatingStars(rating) {
+            const ratingDiv = document.getElementById('book-rating');
+            ratingDiv.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const starImg = document.createElement('img');
+                starImg.src = i <= rating ? '../resources/yellow_star.png' : '../resources/star.png';
+                starImg.alt = `Star ${i}`;
+                starImg.classList.add('star');
+                starImg.addEventListener('click', () => rateBook(i));
+                ratingDiv.appendChild(starImg);
+            }
+        }
+
+        function rateBook(rating) {
+            const userId = localStorage.getItem('user_id');
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get('book_id');
+
+            if (userId && bookId) {
+                fetch(`/api/books/${bookId}/rate`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_id: userId, rating: rating })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentRating = rating;
+                        setRatingStars(currentRating);
+                        alert('Rating submitted successfully');
+                    } else {
+                        alert('Failed to submit rating');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            } else {
+                alert('User ID or Book ID not found');
+            }
+        }
+
+        function redirectToProfile() {
+            window.location.href = '/profile/profile.html';
+        }
+    </script>
 </body>
 </html>

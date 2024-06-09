@@ -189,7 +189,7 @@
                                 </div>` : ``}
                             </div>
                             <div class="trade_book">
-                                <img class="book" src="/resources/books/${trade.book_offered_logo}" alt="">
+                                <img class="book" src="/resources/books/${trade.book_offered_logo}" alt="" onclick="redirectToBookPage(${trade.book_id_offer})">
                                 <div class="trade_bookdescription">
                                     <div>
                                         <p>"${trade.book_offered_title}"</p>
@@ -200,7 +200,7 @@
                                 <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
                                 <div class="trade_book_choose">
                                   ${trade.user_id_reply ?
-                                    `<img class="book" src="/resources/books/${trade.book_reply_logo}" alt="">
+                                    `<img class="book" src="/resources/books/${trade.book_reply_logo}" alt="" onclick="redirectToBookPage(${trade.book_id_reply})">
                                       <div class="trade_bookdescription">
                                         <div>
                                           <p>"${trade.book_reply_title}"</p>
@@ -210,7 +210,7 @@
                                       </div>` :
                                     (trade.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` :
                                       `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html?offer_id=${trade.exchange_id}"></a>
-                                       <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                                      <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
                                       <p>Choose your book</p>`
                                     )
                                   }
@@ -278,6 +278,10 @@
 
         function redirectToProfile() {
             window.location.href = '/profile/profile.html';
+        }
+
+        function redirectToBookPage(bookId) {
+            window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;
         }
     </script>
 </body>

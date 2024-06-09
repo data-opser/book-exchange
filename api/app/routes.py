@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app, session
 import os
-from api.app.models import User, Book, Author, AuthorBook, Exchange, Library
+from api.app.models import User, Book, Author, AuthorBook, Exchange, Library, Genre, BookGenre, Rating
 from api.app import db, static_folder_path
 from werkzeug.utils import secure_filename
 from flask import render_template_string
@@ -175,6 +175,7 @@ def update_user(user_id):
 def get_last_releases():
     last_releases = Book.query.order_by(Book.release_date.desc()).limit(3).all()
     return jsonify([{
+        'id': book.book_id,
         'title': book.title,
         'description': book.description,
         'logo': book.logo,
@@ -191,18 +192,57 @@ def get_user_library(user_id):
     return jsonify(books)
 
 
+@bp.route('/books/<int:book_id>/rate', methods=['POST'])
+def rate_book(book_id):
+    data = request.json
+    user_id = data.get('user_id')
+    rating_value = data.get('rating')
+
+    if not user_id or not rating_value:
+        return jsonify({'error': 'User ID and rating value are required'}), 400
+
+    rating = Rating.query.filter_by(book_id=book_id, user_id=user_id).first()
+
+    if rating:
+        rating.vote = rating_value
+    else:
+        rating = Rating(book_id=book_id, user_id=user_id, vote=rating_value)
+        db.session.add(rating)
+
+    db.session.commit()
+
+    return jsonify({'success': 'Rating submitted successfully'})
+
+
 @bp.route('/books/<int:book_id>', methods=['GET'])
 def get_book(book_id):
-    book = Book.query.get(book_id)
-    if not book:
-        return jsonify({'error': 'Book not found'}), 404
-    author = Author.query.join(AuthorBook).join(Book).filter(Book.book_id == book_id).first()
+    user_id = request.args.get('user_id')
+    book = Book.query.get_or_404(book_id)
+
+    authors = [ab.author.name for ab in book.authors]
+    genres = [bg.genre.name for bg in book.genres]
+
+    rating = Rating.query.with_entities(db.func.avg(Rating.vote)).filter_by(book_id=book_id).scalar() or 0
+    rating = round(rating, 2) if rating else 0
+
+    user_rating = None
+    if user_id:
+        user_rating = Rating.query.filter_by(book_id=book_id, user_id=user_id).first()
+        user_rating = user_rating.vote if user_rating else None
+
     return jsonify({
-        'book_id': book.book_id,
+        'id': book.book_id,
         'title': book.title,
-        'author': author.name if author else '',
-        'logo': book.logo
+        'logo': book.logo,
+        'description': book.description,
+        'release_date': book.release_date.strftime('%Y-%m-%d'),
+        'author': ', '.join(authors),
+        'genre': ', '.join(genres),
+        'year': book.release_date.year,
+        'rating': rating,
+        'user_rating': user_rating
     })
+
 
 
 @bp.route('/trades', methods=['POST'])
@@ -265,6 +305,8 @@ def get_user_active_offers(user_id):
             'book_reply_author': row[8],
             'comment_offer': row[9],
             'comment_reply': row[10],
+            'book_id_offer': row[11],
+            'book_id_reply': row[12],
             'user_id_offer': row[13],
             'user_id_reply': row[14],
             'user_name_reply': row[15],
@@ -311,6 +353,8 @@ def get_active_trades():
             'book_reply_author': row[8],
             'comment_offer': row[9],
             'comment_reply': row[10],
+            'book_id_offer': row[11],
+            'book_id_reply': row[12],
             'user_id_offer': row[13],
             'user_id_reply': row[14],
             'user_name_reply': row[15],
