@@ -66,33 +66,7 @@
             </div>
         </div>
         <h3>Offers:</h3>
-        <div class="trades">
-            <div class="trade">
-                <div class="trader">
-                    <div class="trader_left">
-                        <img class="profile_img" src="../resources/profile_img.png" alt="">
-                        <p>Dmytro</p>
-                    </div>
-                    <p>&bigtriangledown;</p>
-                </div>
-                <div class="trade_book">
-                    <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">
-                    <div class="trade_bookdescription">
-                        <div>
-                            <p>"The Dream Daughter"</p>
-                            <p>Diane Chamberlain</p>
-                        </div>
-                        <p>Fiction</p>
-                        <p>2022</p>
-                    </div>
-                    <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
-                    <div class="trade_book_choose">
-                        <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                        <p>Choose your book</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="user_offers" class="trades"></div>
         <h3>Have:</h3>
         <div id="user_books" class="books_container"></div>
     </div>
@@ -117,6 +91,7 @@
                         if (user.error) {
                             console.error('Error:', user.error);
                         } else {
+                            console.log('User:', user);
                             document.getElementById('profile_image').src = `../resources/profiles/${user.profile_image}`;
                             document.getElementById('profile_name').innerText = user.name || '';
                             document.getElementById('profile_lastname').innerText = user.lastname || '';
@@ -128,16 +103,93 @@
                 fetch(`/api/users/${userId}/library`)
                     .then(response => response.json())
                     .then(books => {
+                        console.log('Books:', books);
                         const userBooksDiv = document.getElementById('user_books');
                         books.forEach(book => {
                             const bookDiv = document.createElement('div');
                             bookDiv.className = 'book_item';
-                            bookDiv.innerHTML = `                                
+                            bookDiv.innerHTML = `
                                 <img class="book_img" src="../resources/books/${book.logo}" alt="${book.title}">
                                 <p>${book.title}</p>
-                                <p>${book.author}</p>                                
+                                <p>${book.author}</p>
                             `;
                             userBooksDiv.appendChild(bookDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+
+                fetch(`/api/users/${userId}/active_offers`)
+                    .then(response => response.json())
+                    .then(offers => {
+                        console.log('Offers:', offers);
+                        const userOffersDiv = document.getElementById('user_offers');
+                        offers.forEach(offer => {
+                            const offerDiv = document.createElement('div');
+                            offerDiv.className = 'trade';
+                            offerDiv.innerHTML = `
+                                <div class="trader">
+                                <div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${offer.user_profile_image}" alt="">
+                                    <p>${offer.user_name}</p>
+                                </div>
+                                ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">Close trade</button>` : ''}
+                                ${offer.user_id_reply ?
+                                `<div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${offer.user_profile_image_reply}" alt="">
+                                    <p>${offer.user_name_reply}</p>
+                                </div>` : ``}
+                                <p>&bigtriangledown;</p>
+                            </div>
+                            <div class="trade_book">
+                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="">
+                                <div class="trade_bookdescription">
+                                    <div>
+                                        <p>"${offer.book_offered_title}"</p>
+                                        <p>${offer.book_offered_author}</p>
+                                    </div>
+                                        <p>${offer.comment_offer}</p>
+                                </div>
+                                <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
+                                <div class="trade_book_choose">
+                                  ${offer.user_id_reply ?
+                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="">
+                                      <div class="trade_bookdescription">
+                                        <div>
+                                          <p>"${offer.book_reply_title}"</p>
+                                          <p>${offer.book_reply_author}</p>
+                                        </div>
+                                        <p>${offer.comment_reply}</p>
+                                      </div>` :
+                                    (offer.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` :
+                                      `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
+                                      <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                                      <p>Choose your book</p>`
+                                    )
+                                  }
+                                </div>
+                        `;
+                            userOffersDiv.appendChild(offerDiv);
+                        });
+
+                        document.querySelectorAll('.close-trade').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const tradeId = this.getAttribute('exchange_id');
+                                fetch(`/api/trades/${tradeId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.closest('.trade').remove();
+                                    } else {
+                                        console.error('Error:', data.error);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                            });
                         });
                     })
                     .catch(error => console.error('Error:', error));

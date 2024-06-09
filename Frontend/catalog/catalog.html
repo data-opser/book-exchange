@@ -7,15 +7,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="catalog.css">    
+    <link rel="stylesheet" href="catalog.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
 <body class="container">
@@ -28,18 +26,19 @@
         </div>
         <div class="header_profile">
             <div class="header_profile_imges">
-                <a class="crosslink_to_profile" href="../profile/profile.html"></a>
-                <img class="profile_img" src="../resources/profile_img.png" alt="">
+                <a id="login-link" href="/login/login.html">
+                    <p class="profileU">Log in</p>
+                </a>
+                <img id="profile-image" src="/resources/profile_placeholder.png" alt="" onclick="redirectToProfile()" width="150" height="150">
             </div>
         </div>
-        
     </header>
 
     <main class="blockmain">
         <div class="catalog_left" id="filter">
             <div class="author_dropdown">
                 <ul class="author_list">
-                    <li><p class="athor_text">Author &bigtriangledown;</p>
+                    <li><p class="author_text">Author &bigtriangledown;</p>
                         <ul>
                             <li>
                                 <input type="text" placeholder="Filter" class="author_filter">
@@ -61,10 +60,10 @@
                                 <p>Agatha Christie</p><div>7</div>
                             </li>
                         </ul>
-                    </li>      
+                    </li>
                 </ul>
             </div>
-    
+
             <div class="year_dropdown">
                 <ul class="year_list">
                     <li><p class="year_text">Year &bigtriangledown;</p>
@@ -86,10 +85,10 @@
                                 <p>2021</p>
                             </li>
                         </ul>
-                    </li>      
+                    </li>
                 </ul>
             </div>
-    
+
             <div class="genre_dropdown">
                 <ul class="genre_list">
                     <li><p class="genre_text">Genre &bigtriangledown;</p>
@@ -114,15 +113,15 @@
                                 <p>Agatha Christie</p><div>7</div>
                             </li>
                         </ul>
-                    </li>      
+                    </li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="catalog_right">
             <div class="trade_sorting">
-                <button class="trade_text">
-                    <a href="../tradepage/tradepage.html">Create a trade</a>
+                <button class="trade_text" id="create-trade-button">
+                    Create a trade
                 </button>
                 <button class="trade_text media_filter">
                     <a href="#filter">More filters</a>
@@ -132,42 +131,13 @@
                     <p>Sorting: New &bigtriangledown;</p>
                 </div>
             </div>
-            
-    
-            <div class="trades">
-                <div class="trade">
-                
-                    <div class="trader">
-                        <div class="trader_left">
-                            <img class="profile_img" src="../resources/profile_img.png" alt="">
-                            <p>Dmytro</p>
-                        </div>
-                        <p>&bigtriangledown;</p>
-                    </div>
-        
-                    <div class="trade_book">
-                        <img class="book" src="../resources/books/my_mother_is_a_mountain.png" alt="">                                
-                        <div class="trade_bookdescription">                        
-                            <div>
-                                <p>"The Dream Daughter"</p>
-                                <p>Diane Chamberlain</p>
-                            </div>                        
-                            <p>Fiction</p>
-                            <p>2022</p>
-                        </div>
-        
-                        <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
-        
-                        <div class="trade_book_choose">
-                            <a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
-                            <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                            <p>Choose your book</p>
-                        </div>
-                    </div>
-                </div>
+
+
+            <div class="trades" id="trades">
+                <!-- Trades will be populated here by JavaScript -->
             </div>
         </div>
-        
+
     </main>
 
     <footer class="blockfooter">
@@ -178,8 +148,113 @@
         </div>
         <div class="app">
             <p>Mobile application</p>
-            <img src="../resources/qr-code.png" alt="">
-        </div>     
+            <img src="../resources/QR-code.png" alt="">
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                fetch(`/api/users/${userId}`)
+                    .then(response => response.json())
+                    .then(user => {
+                        document.getElementById('login-link').style.display = 'none';
+                        document.getElementById('profile-image').src = `/resources/profiles/${user.profile_image}`;
+                        document.getElementById('profile-image').style.display = 'block';
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            // Fetch and display active trades
+            fetch('/api/active-trades')
+                .then(response => response.json())
+                .then(trades => {
+                    const tradesDiv = document.getElementById('trades');
+                    trades.forEach(trade => {
+                        const tradeDiv = document.createElement('div');
+                        tradeDiv.className = 'trade';
+                        tradeDiv.innerHTML = `
+                            <div class="trader">
+                                <div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${trade.user_profile_image}" alt="">
+                                    <p>${trade.user_name}</p>
+                                </div>
+                                ${trade.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${trade.exchange_id}">Close trade</button>` : ''}
+                                ${trade.user_id_reply ?
+                                `<div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${trade.user_profile_image_reply}" alt="">
+                                    <p>${trade.user_name_reply}</p>
+                                </div>` : ``}
+                                <p>&bigtriangledown;</p>
+                            </div>
+                            <div class="trade_book">
+                                <img class="book" src="/resources/books/${trade.book_offered_logo}" alt="">
+                                <div class="trade_bookdescription">
+                                    <div>
+                                        <p>"${trade.book_offered_title}"</p>
+                                        <p>${trade.book_offered_author}</p>
+                                    </div>
+                                        <p>${trade.comment_offer}</p>
+                                </div>
+                                <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
+                                <div class="trade_book_choose">
+                                  ${trade.user_id_reply ?
+                                    `<img class="book" src="/resources/books/${trade.book_reply_logo}" alt="">
+                                      <div class="trade_bookdescription">
+                                        <div>
+                                          <p>"${trade.book_reply_title}"</p>
+                                          <p>${trade.book_reply_author}</p>
+                                        </div>
+                                        <p>${trade.comment_reply}</p>
+                                      </div>` :
+                                    (trade.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` :
+                                      `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
+                                      <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                                      <p>Choose your book</p>`
+                                    )
+                                  }
+                                </div>
+                        `;
+                        tradesDiv.appendChild(tradeDiv);
+                    });
+                    document.querySelectorAll('.close-trade').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const tradeId = this.getAttribute('exchange_id');
+                                fetch(`/api/trades/${tradeId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.closest('.trade').remove();
+                                    } else {
+                                        console.error('Error:', data.error);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                            });
+                        });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Add event listener for create trade button
+        document.getElementById('create-trade-button').addEventListener('click', function() {
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                window.location.href = '../tradepage/tradepage.html';
+            } else {
+                window.location.href = '../login/login.html';
+            }
+        });
+
+        function redirectToProfile() {
+            window.location.href = '/profile/profile.html';
+        }
+    </script>
 </body>
 </html>
