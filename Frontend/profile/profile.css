@@ -199,7 +199,7 @@ footer p {
     align-items: center;
     justify-content: space-around;
     text-align: center;
-    width: 30%;
+    width: 28%;
     margin-bottom: 3%;
 }
 
@@ -297,6 +297,8 @@ footer p {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    margin-right: 3%;
 }
 .close-trade {
     background-color: inherit;
@@ -328,7 +330,7 @@ footer p {
 /* media queries */
 @media screen and (max-width: 1100px) {   
     .container {
-        grid-template: 50px 30% 1fr 200px / 2fr 4fr 1fr;
+        grid-template: 50px 40% 1fr 200px / 2fr 4fr 1fr;
     }
     .blockheader {
         grid-area: 1 / 1 / 2 / 4;
@@ -467,7 +469,7 @@ footer p {
 
 @media screen and (max-width: 500px) { 
     .container {
-        grid-template: 50px 26% 1fr 200px / 2fr 4fr 1fr;
+        grid-template: 50px 35% 1fr 200px / 2fr 4fr 1fr;
     } 
     .user_overflow {
         margin-bottom: 11%;
@@ -498,6 +500,7 @@ footer p {
         text-align: center;
     }
     .edit_button img {
-        width: 8%;
+        width: 10%;
+        height: 50%;
     }
 } 
