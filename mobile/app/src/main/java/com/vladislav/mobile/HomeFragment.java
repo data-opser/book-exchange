@@ -2,7 +2,6 @@ package com.vladislav.mobile;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.simple.JSONObject;
-
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -65,7 +62,7 @@ public class HomeFragment extends Fragment {
         ImageButton buttonAccept = activity.findViewById(R.id.imageButton_Accept);
         LinearLayout layoutRequest = activity.findViewById(R.id.linearLayout_Request);
         try {
-            bookName.setText(jsonBookData.get(counter).get("user_name").toString());
+            bookName.setText(jsonBookData.get(counter).get("book_offered_title").toString());
             bookAuthor.setText(jsonBookData.get(counter).get("book_offered_author").toString());
             userOfferedName.setText(jsonBookData.get(counter).get("user_name").toString());
             setImage(bookPhoto, "book_offered_logo");

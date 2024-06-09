@@ -7,11 +7,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import org.json.simple.JSONObject;
 
@@ -37,7 +35,7 @@ public class Request {
             .build();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/")
+            .baseUrl("https://ebb9-46-150-17-230.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(httpClient)
             .build();
@@ -101,7 +99,6 @@ public class Request {
                                     .apply(RequestOptions.bitmapTransform(new CircleCrop()))
                                     .into(imageView);
                         }
-
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -188,12 +185,6 @@ public class Request {
             }
         });
     }
-
-
-
-
-
-
 
     public void showDialog(Activity activity, String textHead, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
