@@ -29,8 +29,8 @@
     <string name="confirm_password">Confirm new password</string>
     <string name="confirm">Confirm</string>
     <string name="requirements">Requirements</string>
-    <string name="book_info">&quot;History of Ukraine-Rus&quot;\nMykhailo Hrushevskyi</string>
+    <string name="book_name">History of Ukraine-Rus</string>
     <string name="book_genre">Documentary history</string>
-    <string name="book_year">1997</string>
-    <string name="exchange">Choose your book</string>
+    <string name="book_author">Mykhailo Hrushevskyi</string>
+    <string name="accept">Accept</string>
 </resources>

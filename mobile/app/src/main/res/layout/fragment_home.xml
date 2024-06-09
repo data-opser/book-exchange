@@ -21,26 +21,29 @@
 
     <!-- Контейнер з закругленими краями для шапки та контенту -->
     <LinearLayout
+        android:id="@+id/linearLayout_Request"
+        style="@style/bg_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
-        style="@style/bg_head"
-        android:padding="0dp">
+        android:padding="0dp"
+        android:visibility="invisible">
 
         <!-- Верхня шапка з фото та ім'ям -->
         <LinearLayout
+            style="@style/bg_head"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            style="@style/bg_head"
+            android:layout_margin="0dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:layout_margin="0dp">
+            android:paddingHorizontal="16dp">
 
             <!-- Фото відправника -->
             <ImageView
+                android:id="@+id/imageView_UserOffered"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
@@ -50,11 +53,12 @@
 
             <!-- Ім'я відправника -->
             <TextView
+                android:id="@+id/textView_NameOffered"
+                style="@style/Text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@string/user"
-                style="@style/Text3"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -64,12 +68,13 @@
             style="@style/Request"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="0dp"
             android:orientation="horizontal"
-            android:padding="16dp"
-            android:layout_margin="0dp">
+            android:padding="16dp">
 
             <!-- Ліва частина зображення -->
             <ImageView
+                android:id="@+id/imageView_Book"
                 android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:layout_marginEnd="16dp"
@@ -84,28 +89,23 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView_BookName"
+                    style="@style/Text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text="@string/book_info"
+                    android:text="@string/book_name"
                     android:textSize="16sp"
-                    style="@style/Text2"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/textView_BookAuthor"
+                    style="@style/Text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    style="@style/Text2"
-                    android:text="@string/book_genre" />
+                    android:text="@string/book_author" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/book_year"
-                    android:textSize="18sp"
-                    style="@style/Text2"
-                    android:textStyle="bold" />
             </LinearLayout>
 
             <!-- Права частина з кнопкою вибору -->
@@ -116,21 +116,22 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton"
+                    android:id="@+id/imageButton_Accept"
+                    style="@style/Button_Exchange"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/content_dscrp"
-                    android:scaleType="centerCrop"
-                    style="@style/Button_Exchange" />
+                    android:scaleType="centerCrop" />
 
                 <TextView
+                    style="@style/Text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    style="@style/Text2"
-                    android:text="@string/exchange" />
+                    android:text="@string/accept"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

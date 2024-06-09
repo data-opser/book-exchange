@@ -21,15 +21,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class SettingsFragment extends Fragment {
 
-    DrawerLayoutActivity activity;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    private DrawerLayoutActivity activity;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     SwitchCompat switchNotification;
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
+    private int userID;
 
+    public SettingsFragment(int userID){
+        this.userID = userID;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        activity = (DrawerLayoutActivity) getActivity();
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
@@ -38,7 +43,6 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Button buttonChangePassword = view.findViewById(R.id.change_password_button);
-        activity = (DrawerLayoutActivity) getActivity();
         SwitchCompat switchTheme = view.findViewById(R.id.switch_theme);
         switchNotification = view.findViewById(R.id.switch_notification);
         sharedPreferences = activity.getSharedPreferences("MODE", Context.MODE_PRIVATE);
@@ -87,7 +91,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new ChangePasswordFragment(), "CHANGEPASSWORD_FRAGMENT");
+                fragmentTransaction.replace(R.id.fragment_container, new ChangePasswordFragment(userID), "CHANGEPASSWORD_FRAGMENT");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
@@ -46,8 +47,6 @@ public class Request {
         return request;
     }
 
-
-
     public void loginRequest(LaunchActivity activity, String email, String password){
         JSONObject json = new JSONObject();
         json.put("email", email);
@@ -72,8 +71,8 @@ public class Request {
             }
         });
     }
-    public void getImage(Activity activity, String fileName, ImageView imageView){
-        Call<ResponseBody> call = request.downloadImage("Frontend/resources/profiles/" + fileName);
+    public void getImage(Activity activity, String fileName, ImageView imageView, boolean isBook){
+        Call<ResponseBody> call = request.downloadImage("Frontend/resources/" + fileName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -94,9 +93,16 @@ public class Request {
                         is.close();
 
                         // Load the image from the file with Glide
-                        Glide.with(activity).load(file)
-                                        .apply(RequestOptions.bitmapTransform(new CircleCrop()))
-                                        .into(imageView);
+                        if(isBook){
+                            Glide.with(activity).load(file)
+                                    .into(imageView);
+                        } else{
+                            Glide.with(activity).load(file)
+                                    .apply(RequestOptions.bitmapTransform(new CircleCrop()))
+                                    .into(imageView);
+                        }
+
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -110,8 +116,6 @@ public class Request {
         });
     }
     public void getUserData(Activity activity, double userID, DrawerLayoutActivity.UserDataCallback callbackJson){
-        JSONObject json = new JSONObject();
-        json.put("user_id", userID);
         request.getUserInfo((int)userID).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
@@ -126,8 +130,64 @@ public class Request {
             }
         });
     }
+    public void deleteTrade(Activity activity, int tradeID){
+        request.deleteTrade(tradeID).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
 
+            }
 
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
+
+    public void acceptTrade(Activity activity, int tradeID){
+        request.acceptTrade(tradeID).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
+
+    public void changePassword(Activity activity, int userID, String currentPassword, String newPassword){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("current_password", currentPassword);
+        jsonObject.put("new_password", newPassword);
+        request.changePassword(userID, jsonObject).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
+    public void bookRequestData(Activity activity, double userID, HomeFragment.BookRequestCallback callbackJson){
+        request.requestBook((int)userID).enqueue(new Callback<List<JSONObject>>() {
+            @Override
+            public void onResponse(Call<List<JSONObject>> call, Response<List<JSONObject>> response) {
+                if (response.isSuccessful()) {
+                    callbackJson.onBookRequestReceived(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<JSONObject>> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
 
 
 

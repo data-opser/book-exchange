@@ -2,6 +2,7 @@ package com.vladislav.mobile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +19,12 @@ import android.widget.Toast;
 
 
 public class ChangePasswordFragment extends Fragment {
-    DrawerLayoutActivity activity;
+    private DrawerLayoutActivity activity;
+    private final Request request = new Request();
+    private int userID;
+    public ChangePasswordFragment(int userID){
+        this.userID = userID;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,13 +53,12 @@ public class ChangePasswordFragment extends Fragment {
                 if (oldPassword.isEmpty() || newPassword.isEmpty()
                         || confirmPassword.isEmpty()) {
                     Toast.makeText(activity, "Field is empty!", Toast.LENGTH_LONG).show();
-                } else if(false){
-                    Toast.makeText(activity, "Incorrect old password!", Toast.LENGTH_LONG).show();
                 } else if(!newPassword.equals(confirmPassword)){
                     Toast.makeText(activity, "The new passwords do not match!", Toast.LENGTH_LONG).show();
                 } else if(!checkPassword(newPassword)){
                     Toast.makeText(activity, "The new password does not meet the minimum requirements!", Toast.LENGTH_LONG).show();
                 }else {
+                    request.changePassword(activity, userID, oldPassword, newPassword);
                     Toast.makeText(activity, "Correct!", Toast.LENGTH_LONG).show();
                     activity.onBackPressed();
                 }
@@ -76,25 +81,32 @@ public class ChangePasswordFragment extends Fragment {
             }
         });
     }
-    public static boolean checkPassword(String password) {
-        int digitCount = 0;
-        int symbolCount = 0;
-
+    private boolean checkPassword(String password) {
         if (password.length() < 8) {
             return false;
         }
 
+        boolean hasDigit = false;
+        boolean hasUpperCase = false;
+        boolean hasLowerCase = false;
+
         for (char ch : password.toCharArray()) {
             if (Character.isDigit(ch)) {
-                digitCount++;
-            } else if (!(Character.isLetter(ch) || Character.isDigit(ch) || Character.isWhitespace(ch))) {
-                symbolCount++;
+                hasDigit = true;
             }
-            if(digitCount > 1 && symbolCount > 0)
-            {
+            if (Character.isUpperCase(ch)) {
+                hasUpperCase = true;
+            }
+            if (Character.isLowerCase(ch)) {
+                hasLowerCase = true;
+            }
+
+            if (hasDigit && hasUpperCase && hasLowerCase) {
                 return true;
             }
         }
-        return false;
+
+        return hasDigit && hasUpperCase && hasLowerCase;
     }
+
 }

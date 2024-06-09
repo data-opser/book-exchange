@@ -55,7 +55,6 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
 
         setContentView(R.layout.activity_drawerlayout);
 
-        settingsFragment = new SettingsFragment();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -70,14 +69,16 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         toggle.syncState();
 
         Intent intent = getIntent();
-        double userID = intent.getDoubleExtra("user_id", -1);
+        int userID = (int)intent.getDoubleExtra("user_id", -1);
 
         request.getUserData(this, userID, new UserDataCallback() {
             @Override
             public void onUserDataReceived(JSONObject userData) {
                 jsonUserData = userData;
-
-                System.out.println(jsonUserData.get("name"));
+                if (savedInstanceState == null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(userID)).commit();
+                    navigationView.setCheckedItem(R.id.nav_home);
+                }
                 TextView nameSurname = navigationView.findViewById(R.id.textView_NameSurname);
                 ImageView photo = navigationView.findViewById(R.id.imageView_User);
 
@@ -92,20 +93,15 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(DrawerLayoutActivity.this, error, Toast.LENGTH_LONG).show();
             }
         });
-
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_home);
-        }
     }
     public void setImage(ImageView imageView){
-        request.getImage(this, jsonUserData.get("profile_image").toString(), imageView);
+        request.getImage(this, "profiles/" + jsonUserData.get("profile_image").toString(), imageView, false);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (menuItem.getItemId() == R.id.nav_settings) {
-            settingsFragment = new SettingsFragment();
+            settingsFragment = new SettingsFragment((int)(double)jsonUserData.get("user_id"));
             setNewFragment(settingsFragment, "SETTINGS_FRAGMENT");
         } else if (menuItem.getItemId() == R.id.nav_support) {
             setNewFragment(new SupportFragment(), "SUPPORT_FRAGMENT");
