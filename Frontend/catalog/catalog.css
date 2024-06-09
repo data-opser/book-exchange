@@ -465,16 +465,16 @@ input[type="checkbox"]:checked {
 @media screen and (max-width: 1150px) {
     .container {
         display: grid;
-        grid-template: 50px 1fr 1fr 200px / 1fr 7fr 1fr;
+        grid-template: 50px 1fr 200px / 1fr 7fr 1fr;
     }
     .blockmain {
-        grid-area: 2 / 2 / 4 / 3;
+        grid-area: 2 / 2 / 3 / 3;
         flex-direction: column-reverse;
         margin-bottom: 2%;
         height: 100%;
     }
     .catalog_left {
-        grid-area: 3 / 2 / 4 / 3;
+        grid-area: 3 / 2 / 3 / 3;
         display: flex;
         width: 100%;
         justify-content: space-between;
@@ -486,7 +486,7 @@ input[type="checkbox"]:checked {
         height: 70%;
     }
     .blockfooter {
-        grid-area: 4 / 1 / 5 / 4;
+        grid-area: 4 / 1 / 4 / 4;
     }
     .logo {
         font-size: 32px;
