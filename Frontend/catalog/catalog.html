@@ -194,9 +194,10 @@
                                 </div>
                                 <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
                                 <div class="trade_book_choose">
+                                    ${trade.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` : `
                                     <a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
                                     <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                                    <p>Choose your book</p>
+                                    <p>Choose your book</p>`}
                                 </div>
                             </div>
                         `;
