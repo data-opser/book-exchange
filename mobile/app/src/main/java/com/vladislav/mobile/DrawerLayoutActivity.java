@@ -55,7 +55,6 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
 
         setContentView(R.layout.activity_drawerlayout);
 
-        settingsFragment = new SettingsFragment();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -96,13 +95,13 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         });
     }
     public void setImage(ImageView imageView){
-        request.getImage(this, "profiles/" + jsonUserData.get("profile_image").toString(), imageView);
+        request.getImage(this, "profiles/" + jsonUserData.get("profile_image").toString(), imageView, false);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (menuItem.getItemId() == R.id.nav_settings) {
-            settingsFragment = new SettingsFragment();
+            settingsFragment = new SettingsFragment((int)(double)jsonUserData.get("user_id"));
             setNewFragment(settingsFragment, "SETTINGS_FRAGMENT");
         } else if (menuItem.getItemId() == R.id.nav_support) {
             setNewFragment(new SupportFragment(), "SUPPORT_FRAGMENT");

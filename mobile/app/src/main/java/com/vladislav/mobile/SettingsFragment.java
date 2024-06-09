@@ -26,7 +26,11 @@ public class SettingsFragment extends Fragment {
     private SharedPreferences.Editor editor;
     SwitchCompat switchNotification;
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
+    private int userID;
 
+    public SettingsFragment(int userID){
+        this.userID = userID;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +91,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = activity.getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, new ChangePasswordFragment(), "CHANGEPASSWORD_FRAGMENT");
+                fragmentTransaction.replace(R.id.fragment_container, new ChangePasswordFragment(userID), "CHANGEPASSWORD_FRAGMENT");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

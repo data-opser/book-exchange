@@ -92,8 +92,6 @@ def change_password(user_id):
         return jsonify({'error': 'New password must contain at least one uppercase letter'}), 400
     if not any(char.islower() for char in new_password):
         return jsonify({'error': 'New password must contain at least one lowercase letter'}), 400
-    if not any(char in "!@#$%^&*()_+-=[]{}|;':,.<>/?`~" for char in new_password):
-        return jsonify({'error': 'New password must contain at least one special character'}), 400
 
     # Update password
     user.set_password(new_password)

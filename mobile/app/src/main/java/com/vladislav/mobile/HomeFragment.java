@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         }
     }
     public void setImage(ImageView imageView, String atributePhoto){
-        request.getImage(activity, (atributePhoto == "book_offered_logo" ? "books/" : "profiles/") + jsonBookData.get(counter).get(atributePhoto).toString(), imageView);
+        request.getImage(activity, (atributePhoto == "book_offered_logo" ? "books/" : "profiles/") + jsonBookData.get(counter).get(atributePhoto).toString(), imageView, atributePhoto == "book_offered_logo");
     }
     public interface BookRequestCallback {
         void onBookRequestReceived(List<JSONObject> bookData);

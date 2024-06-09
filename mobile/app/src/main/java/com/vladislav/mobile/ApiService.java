@@ -27,8 +27,8 @@ public interface ApiService {
     @DELETE("api/trades/{trade_id}")
     Call<JSONObject> deleteTrade(@Path("trade_id") int tradeID);
 
-    /*@GET("api/users/{id}")
-    Call<JSONObject> getUserInfo(@Path("id") int userID);*/
+    @POST("api/users/{user_id}/change-password")
+    Call<JSONObject> changePassword(@Path("user_id") int userID, @Body JSONObject json);
 
     @GET
     Call<ResponseBody> downloadImage(@Url String fileUrl);
