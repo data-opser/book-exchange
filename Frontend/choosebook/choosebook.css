@@ -64,7 +64,6 @@ p {
     max-width: 4%; 
     align-self: center; 
     padding-right: 2%; 
-    cursor: pointer; 
 }
 
 
@@ -99,16 +98,10 @@ p {
 .crosslink_to_catalog {
     display: block;
     position: absolute;
-    right: 15px;
+    right: 50px;
     top: 5px;
     width: 60px;
     height: 40px;
-}
-.crosslink_to_catalog2 {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
 }
 
 @media screen and (max-width: 1000px) {
