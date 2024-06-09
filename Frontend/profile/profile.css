@@ -160,6 +160,7 @@ footer p {
 }
 .edit_button img {
     width: 7%;
+    height: auto;
     cursor: pointer;
 }
 .edit_button button {
@@ -234,10 +235,9 @@ footer p {
     justify-self: end;
 }
 
-
 .trade {
     margin-top: 1%;
-    margin-bottom: 1%;
+    margin-bottom: 3%;
     height: 25%;
 }
 
@@ -412,6 +412,7 @@ footer p {
     }
     .edit_button img {
         width: 5%;
+        height: auto;
         margin: 0;
     }
     .logo {
@@ -458,11 +459,15 @@ footer p {
     .trader_p {
         font-size: 15px;
     }
+
+    .close-trade, .accept-trade {
+        font-size: 15px;
+    }
 }
 
 @media screen and (max-width: 500px) { 
     .container {
-        grid-template: 50px 32% 1fr 200px / 2fr 4fr 1fr;
+        grid-template: 50px 26% 1fr 200px / 2fr 4fr 1fr;
     } 
     .user_overflow {
         margin-bottom: 11%;
@@ -493,7 +498,6 @@ footer p {
         text-align: center;
     }
     .edit_button img {
-        width: 10%;
-        height: 20%;
+        width: 8%;
     }
 } 
