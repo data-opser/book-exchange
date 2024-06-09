@@ -75,7 +75,7 @@ p {
     border-radius: 10px;
     background-color: transparent;
     font-size: large;
-    height: 50%;
+    height: 70%;
     width: 98%;    
     font-family: "Inter", sans-serif;
     text-decoration: none; 
@@ -119,9 +119,12 @@ h2, h3{
     /* height: 10%; */
     margin-bottom: 3%;
     height: auto; 
-    flex-grow: 1;
 }
-
+#book-title {
+    position: absolute;
+    top: 50px;
+    left: 85px;
+}
 .user_info1 {
     position: absolute;
     top: -15px;
