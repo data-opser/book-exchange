@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
         }
     }
     public void setImage(ImageView imageView, String atributePhoto){
-        request.getImage(activity, jsonBookData.get(counter).get(atributePhoto).toString(), imageView);
+        request.getImage(activity, (atributePhoto == "book_offered_logo" ? "books/" : "profiles/") + jsonBookData.get(counter).get(atributePhoto).toString(), imageView);
     }
     public interface BookRequestCallback {
         void onBookRequestReceived(List<JSONObject> bookData);
@@ -98,12 +98,12 @@ public class HomeFragment extends Fragment {
                 .setMessage("Accept the offer?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    jsonBookData.get(counter).get("exchange_id");
-
+                    request.acceptTrade(activity, (int)(double)jsonBookData.get(counter).get("exchange_id"));
                     counter++;
                     processingRequest();
                 })
                 .setNegativeButton("No", (dialog, which) -> {
+                    request.deleteTrade(activity, (int)(double)jsonBookData.get(counter).get("exchange_id"));
                     counter++;
                     processingRequest();
                     dialog.cancel();

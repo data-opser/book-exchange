@@ -1,6 +1,7 @@
 package com.vladislav.mobile;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -19,6 +20,15 @@ public interface ApiService {
 
     @GET("api/users/{id}")
     Call<JSONObject> getUserInfo(@Path("id") int userID);
+
+    @POST("api/trades/{trade_id}/accept")
+    Call<JSONObject> acceptTrade(@Path("trade_id") int tradeID);
+
+    @DELETE("api/trades/{trade_id}")
+    Call<JSONObject> deleteTrade(@Path("trade_id") int tradeID);
+
+    /*@GET("api/users/{id}")
+    Call<JSONObject> getUserInfo(@Path("id") int userID);*/
 
     @GET
     Call<ResponseBody> downloadImage(@Url String fileUrl);

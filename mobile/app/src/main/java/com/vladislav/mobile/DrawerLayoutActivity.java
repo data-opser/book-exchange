@@ -96,7 +96,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         });
     }
     public void setImage(ImageView imageView){
-        request.getImage(this, jsonUserData.get("profile_image").toString(), imageView);
+        request.getImage(this, "profiles/" + jsonUserData.get("profile_image").toString(), imageView);
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

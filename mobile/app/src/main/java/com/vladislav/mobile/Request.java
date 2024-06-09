@@ -74,7 +74,7 @@ public class Request {
         });
     }
     public void getImage(Activity activity, String fileName, ImageView imageView){
-        Call<ResponseBody> call = request.downloadImage("Frontend/resources/profiles/" + fileName);
+        Call<ResponseBody> call = request.downloadImage("Frontend/resources/" + fileName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -111,8 +111,6 @@ public class Request {
         });
     }
     public void getUserData(Activity activity, double userID, DrawerLayoutActivity.UserDataCallback callbackJson){
-        JSONObject json = new JSONObject();
-        json.put("user_id", userID);
         request.getUserInfo((int)userID).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
@@ -127,10 +125,34 @@ public class Request {
             }
         });
     }
+    public void deleteTrade(Activity activity, int tradeID){
+        request.deleteTrade(tradeID).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
+
+    public void acceptTrade(Activity activity, int tradeID){
+        request.acceptTrade(tradeID).enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+                showDialog(activity, "Error", t.getMessage());
+            }
+        });
+    }
 
     public void bookRequestData(Activity activity, double userID, HomeFragment.BookRequestCallback callbackJson){
-        JSONObject json = new JSONObject();
-        json.put("user_id", userID);
         request.requestBook((int)userID).enqueue(new Callback<List<JSONObject>>() {
             @Override
             public void onResponse(Call<List<JSONObject>> call, Response<List<JSONObject>> response) {
