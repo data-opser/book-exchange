@@ -454,6 +454,12 @@ input[type="checkbox"]:checked {
     background-color: #6c3e3e;
     transition: 0.5s;
 }
+
+.profileU {
+    font-size: 40px;
+    text-decoration: none;
+    color: #6c3e3e;
+}
 /*media queries*/
 
 @media screen and (max-width: 1150px) {
@@ -529,7 +535,9 @@ input[type="checkbox"]:checked {
     p {
         font-size: 10px;
     }
-
+    .profileU {
+        font-size: 16px;
+    }
     .release {
         margin: 7%;
     }
@@ -641,7 +649,10 @@ input[type="checkbox"]:checked {
     .app p {
         text-align: center;
     }
-
+    .header_profile {
+        padding-top: 1%;
+        padding-right: 0;
+    }
     #profile-image { 
         height: 30px;
         width: 30px;
