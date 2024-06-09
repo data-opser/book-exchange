@@ -68,6 +68,40 @@ def logout():
     return jsonify({'message': 'Logout successful'}), 200
 
 
+@bp.route('/users/<int:user_id>/change-password', methods=['POST'])
+def change_password(user_id):
+    data = request.json
+    current_password = data.get('current_password')
+    new_password = data.get('new_password')
+
+    # Fetch user
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    # Check current password
+    if not user.check_password(current_password):
+        return jsonify({'error': 'Current password is incorrect'}), 400
+
+    # Validate new password format
+    if len(new_password) < 8:
+        return jsonify({'error': 'New password must be at least 8 characters long'}), 400
+    if not any(char.isdigit() for char in new_password):
+        return jsonify({'error': 'New password must contain at least one number'}), 400
+    if not any(char.isupper() for char in new_password):
+        return jsonify({'error': 'New password must contain at least one uppercase letter'}), 400
+    if not any(char.islower() for char in new_password):
+        return jsonify({'error': 'New password must contain at least one lowercase letter'}), 400
+    if not any(char in "!@#$%^&*()_+-=[]{}|;':,.<>/?`~" for char in new_password):
+        return jsonify({'error': 'New password must contain at least one special character'}), 400
+
+    # Update password
+    user.set_password(new_password)
+    db.session.commit()
+
+    return jsonify({'success': 'Password changed successfully'}), 200
+
+
 @bp.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get(user_id)
