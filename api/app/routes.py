@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app, session
 import os
-from api.app.models import User, Book, Author, AuthorBook, Exchange
+from api.app.models import User, Book, Author, AuthorBook, Exchange, Library
 from api.app import db, static_folder_path
 from werkzeug.utils import secure_filename
 from flask import render_template_string
@@ -303,6 +303,40 @@ def update_trade(trade_id):
 
     db.session.commit()
     return jsonify({'success': 'Trade updated successfully'})
+
+
+@bp.route('/trades/<int:trade_id>/accept', methods=['POST'])
+def accept_trade(trade_id):
+    trade = Exchange.query.get(trade_id)
+    if not trade:
+        return jsonify({'error': 'Trade not found'}), 404
+
+    if trade.is_complete:
+        return jsonify({'error': 'Trade is already complete'}), 400
+
+    if not trade.user_id_reply or not trade.book_id_reply:
+        return jsonify({'error': 'Trade reply details are incomplete'}), 400
+
+    # Swap the books in the libraries
+    user_offer_library = Library.query.filter_by(user_id=trade.user_id_offer, book_id=trade.book_id_offer).first()
+    user_reply_library = Library.query.filter_by(user_id=trade.user_id_reply, book_id=trade.book_id_reply).first()
+
+    if user_offer_library:
+        user_offer_library.book_id = trade.book_id_reply
+    else:
+        new_entry = Library(user_id=trade.user_id_offer, book_id=trade.book_id_reply)
+        db.session.add(new_entry)
+
+    if user_reply_library:
+        user_reply_library.book_id = trade.book_id_offer
+    else:
+        new_entry = Library(user_id=trade.user_id_reply, book_id=trade.book_id_offer)
+        db.session.add(new_entry)
+
+    trade.is_complete = True
+    db.session.commit()
+
+    return jsonify({'success': 'Trade accepted and books swapped'}), 200
 
 
 @bp.route('/trades/<int:trade_id>', methods=['DELETE'])
