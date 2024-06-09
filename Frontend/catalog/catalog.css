@@ -94,6 +94,8 @@ footer p {
 .profile_img {
     height: 70px;
     width: 70px;
+    border-radius: 50%;
+    padding-left: 15px;
 }
 
 #profile-image {
@@ -350,7 +352,7 @@ input[type="checkbox"]:checked {
 
 .trade {
     margin-top: 1%;
-    margin-bottom: 1%;
+    margin-bottom: 3%;
 }
 
 .book {
