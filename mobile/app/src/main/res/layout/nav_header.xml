@@ -9,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:id="@+id/imageView_User"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_gravity="start|top"
@@ -16,9 +17,10 @@
         android:src="@drawable/user" />
 
     <TextView
+        android:id="@+id/textView_NameSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name Surname"
+        android:text="@string/user"
         style="@style/Text"
         android:textStyle="bold"
         android:layout_marginTop="16dp"/>
