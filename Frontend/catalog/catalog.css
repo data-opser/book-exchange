@@ -454,21 +454,27 @@ input[type="checkbox"]:checked {
     background-color: #6c3e3e;
     transition: 0.5s;
 }
+
+.profileU {
+    font-size: 40px;
+    text-decoration: none;
+    color: #6c3e3e;
+}
 /*media queries*/
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1150px) {
     .container {
         display: grid;
-        grid-template: 50px 1fr 1fr 200px / 1fr 7fr 1fr;
+        grid-template: 50px 1fr 200px / 1fr 7fr 1fr;
     }
     .blockmain {
-        grid-area: 2 / 2 / 4 / 3;
+        grid-area: 2 / 2 / 3 / 3;
         flex-direction: column-reverse;
         margin-bottom: 2%;
         height: 100%;
     }
     .catalog_left {
-        grid-area: 3 / 2 / 4 / 3;
+        grid-area: 3 / 2 / 3 / 3;
         display: flex;
         width: 100%;
         justify-content: space-between;
@@ -480,7 +486,7 @@ input[type="checkbox"]:checked {
         height: 70%;
     }
     .blockfooter {
-        grid-area: 4 / 1 / 5 / 4;
+        grid-area: 4 / 1 / 4 / 4;
     }
     .logo {
         font-size: 32px;
@@ -529,7 +535,9 @@ input[type="checkbox"]:checked {
     p {
         font-size: 10px;
     }
-
+    .profileU {
+        font-size: 16px;
+    }
     .release {
         margin: 7%;
     }
@@ -627,12 +635,24 @@ input[type="checkbox"]:checked {
     .trader_p {
         font-size: 15px;
     }
+
+    .close-trade, .accept-trade {
+        font-size: 15px;
+    }
+
+    .profile_img {
+        height: 35px;
+        width: 35px;
+    }
 }
 @media screen and (max-width: 650px) {
     .app p {
         text-align: center;
     }
-
+    .header_profile {
+        padding-top: 1%;
+        padding-right: 0;
+    }
     #profile-image { 
         height: 30px;
         width: 30px;
