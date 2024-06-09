@@ -91,14 +91,20 @@ footer p {
     align-self: center;
 }
 
-.bell {
-    height: 30px;
-    width: 30px;
-}
 .profile_img {
     height: 70px;
     width: 70px;
 }
+
+#profile-image {
+    display: none; 
+    cursor: pointer;
+    border-radius: 50%;    
+    height: 70px;
+    width: 70px;
+    margin: 10px;
+}
+
 .crosslink_to_profile {
     display: block;
     position: absolute;
@@ -450,9 +456,6 @@ input[type="checkbox"]:checked {
     .logo {
         font-size: 32px;
     }
-    .profileU {
-        font-size: 16px;
-    }
 
     .search-form {
         height: 25px;
@@ -471,9 +474,14 @@ input[type="checkbox"]:checked {
         height: 15px;
         width: 15px;
     }
-    .profile_img {
-        height: 35px;
-        width: 35px;
+    #profile-image { 
+        padding-top: 0;
+        height: 50px;
+        width: 50px;
+    }
+
+    .header_profile {
+        padding-top: 0;
     }
     .crosslink_to_profile {
         display: block;
@@ -514,14 +522,11 @@ input[type="checkbox"]:checked {
 
     .trade_arrow {
         display: none;
-    }
-    
+    }    
      
     .trade_bookdescription p {
         font-size: 15px;
-    }
-
-    
+    }    
 
     .trade_book_choose p {
         font-size: 15px;
@@ -584,8 +589,13 @@ input[type="checkbox"]:checked {
     }
 
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
     .app p {
         text-align: center;
+    }
+
+    #profile-image { 
+        height: 30px;
+        width: 30px;
     }
 } 
