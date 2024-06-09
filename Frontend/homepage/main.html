@@ -105,7 +105,7 @@
                                 <h3>${book.title}</h3>
                                 <p>${book.description}</p>
                             </div>
-                            <img class="book" src="/resources/books/${book.logo}" alt="${book.title}">
+                            <img class="book" src="/resources/books/${book.logo}" alt="${book.title}" onclick="redirectToBookPage(${book.id})">
                         `;
                         releasesDiv.appendChild(releaseDiv);
                     });
@@ -124,6 +124,10 @@
                     .catch(error => console.error('Error:', error));
             }
         });
+
+        function redirectToBookPage(bookId) {
+            window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;
+        }
 
         function redirectToProfile() {
             window.location.href = '/profile/profile.html';
