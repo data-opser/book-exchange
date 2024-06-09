@@ -133,6 +133,7 @@
                                     <p>${offer.user_name}</p>
                                 </div>
                                 ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">Close trade</button>` : ''}
+                                ${(offer.user_id_offer === parseInt(userId) && offer.user_id_reply) ? `<button class="accept-trade" exchange_id="${offer.exchange_id}">Accept trade</button>` : ''}
                                 ${offer.user_id_reply ?
                                 `<div class="trader_left">
                                     <img class="profile_img" src="/resources/profiles/${offer.user_profile_image_reply}" alt="">
@@ -191,8 +192,33 @@
                                 .catch(error => console.error('Error:', error));
                             });
                         });
+
+                        // Add event listener for accept-trade button
+                        document.querySelectorAll('.accept-trade').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const tradeId = this.getAttribute('exchange_id');
+                                fetch(`/api/trades/${tradeId}/accept`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('Trade accepted and books swapped successfully.');
+                                        location.reload();  // Reload the page to reflect changes
+                                    } else {
+                                        console.error('Error:', data.error);
+                                        alert(`Error: ${data.error}`);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                            });
+                        });
                     })
                     .catch(error => console.error('Error:', error));
+
             } else {
                 console.error('User ID not found');
             }
