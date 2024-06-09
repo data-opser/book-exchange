@@ -17,8 +17,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="icon" href="../resources/icon.png">
     <link rel="stylesheet" href="choosebook.css">
+    <link rel="icon" href="../resources/icon.png">
 </head>
-
+<body>
     <div class="login_form">
         <div class="login_form_header">
             <div class="spacer"></div>
@@ -27,51 +28,38 @@
             <a class="crosslink_to_catalog" href="../catalog/catalog.html"></a>
             <img src="../resources/white_cross.png" alt="">
         </div>
-        <div class="book_row">
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="want">
-                <a class="crosslink_to_catalog2" href="../catalog/catalog.html"></a>
-                <img class="want_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
+        <div class="book_row" id="book_row">
+            <!-- Books will be populated here -->
         </div>
-        
-        
-        
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = localStorage.getItem('user_id');
+            if (userId) {
+                fetch(`/api/users/${userId}/library`)
+                    .then(response => response.json())
+                    .then(books => {
+                        const bookRow = document.getElementById('book_row');
+                        books.forEach(book => {
+                            const bookDiv = document.createElement('div');
+                            bookDiv.className = 'want';
+                            bookDiv.innerHTML = `
+                                <img class="want_img" src="../resources/books/${book.logo}" alt="">
+                                <p>${book.title}</p>
+                                <p>${book.author}</p>
+                            `;
+                            bookDiv.addEventListener('click', () => {
+                                window.location.href = `../tradepage/tradepage.html?book_id=${book.book_id}`;
+                            });
+                            bookRow.appendChild(bookDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                window.location.href = '/login/login.html';
+            }
+        });
+    </script>
+</body>
 </html>

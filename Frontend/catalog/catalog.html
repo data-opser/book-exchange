@@ -29,7 +29,7 @@
                 <a id="login-link" href="/login/login.html">
                     <p class="profileU">Log in</p>
                 </a>
-                <img id="profile-image" src="/resources/profile_placeholder.png" alt="" onclick="redirectToProfile()">
+                <img id="profile-image" src="/resources/profile_placeholder.png" alt="" onclick="redirectToProfile()" width="150" height="150">
             </div>
         </div>
     </header>
@@ -148,7 +148,7 @@
         </div>
         <div class="app">
             <p>Mobile application</p>
-            <img src="../resources/qr-code.png" alt="">
+            <img src="../resources/QR-code.png" alt="">
         </div>
     </footer>
 
@@ -189,8 +189,7 @@
                                         <p>"${trade.book_offered_title}"</p>
                                         <p>${trade.book_offered_author}</p>
                                     </div>
-                                    <p>Fiction</p>
-                                    <p>2022</p>
+                                        <p>${trade.comment_offer}</p>
                                 </div>
                                 <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
                                 <div class="trade_book_choose">
