@@ -6,26 +6,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 @SuppressLint("CustomSplashScreen")
 public class LaunchActivity extends AppCompatActivity {
-    private EditText editTextLogin;
-    private EditText editTextPassword;
-
+    public EditText editTextEmail;
+    public EditText editTextPassword;
+    private final Request request = new Request();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,24 +43,18 @@ public class LaunchActivity extends AppCompatActivity {
         setTheme();
 
         Button buttonLogin = findViewById(R.id.button_login);
-        editTextLogin = findViewById(R.id.editText_Email);
+        editTextEmail = findViewById(R.id.editText_Email);
         editTextPassword = findViewById(R.id.editText_Password);
 
 
         buttonLogin.setOnClickListener(v -> {
-            String login = editTextLogin.getText().toString();
+            String email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
 
-            Intent intent2 = new Intent(LaunchActivity.this, DrawerLayoutActivity.class);///////////// ВИДАЛИТИ!!!!
-            startActivity(intent2); ///////////// ВИДАЛИТИ!!!!
-
-            if(login.isEmpty() || password.isEmpty()){
+            if(email.isEmpty() || password.isEmpty()){
                 Toast.makeText(LaunchActivity.this, "Field is empty!", Toast.LENGTH_LONG).show();
-            } else if(false){
-                Toast.makeText(LaunchActivity.this, "Wrong email or password!", Toast.LENGTH_LONG).show();
-            } else{
-                Intent intent = new Intent(LaunchActivity.this, DrawerLayoutActivity.class);
-                startActivity(intent);
+            } else {
+                request.loginRequest(this, email, password);
             }
         });
     }
@@ -82,5 +79,4 @@ public class LaunchActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.panel_light));
         }
     }
-
 }
