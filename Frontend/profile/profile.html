@@ -133,7 +133,7 @@
                                     <p class="trader_p">${offer.user_name}</p>
                                 </div>
                                 ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">cansel trade</button>` : ''}
-                                ${(offer.user_id_offer === parseInt(userId) && offer.user_id_reply) ? `<button class="accept-trade" exchange_id="${offer.exchange_id}">Accept trade</button>` : ''}
+                                ${(offer.user_id_offer === parseInt(userId) && offer.user_id_reply) ? `<button class="accept-trade" exchange_id="${offer.exchange_id}">accept trade</button>` : ''}
                                 ${offer.user_id_reply ?
                                 `<div class="trader_left">
                                     <img class="profile_img" src="/resources/profiles/${offer.user_profile_image_reply}" alt="">

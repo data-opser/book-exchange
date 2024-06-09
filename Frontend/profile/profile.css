@@ -311,6 +311,19 @@ footer p {
 }
 .close-trade:hover {
     background-color: #6c3e3e;
+    transition: 0.5s;
+}
+.accept-trade {
+    background-color: inherit;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    border-radius: 5%;
+    font-size: 30px;
+}
+.accept-trade:hover {
+    background-color: #6c3e3e;
+    transition: 0.5s;
 }
 /* media queries */
 @media screen and (max-width: 1100px) {   
