@@ -209,8 +209,8 @@
                                         <p>${trade.comment_reply}</p>
                                       </div>` :
                                     (trade.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` :
-                                      `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
-                                      <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                                      `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html?offer_id=${trade.exchange_id}"></a>
+                                       <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
                                       <p>Choose your book</p>`
                                     )
                                   }
