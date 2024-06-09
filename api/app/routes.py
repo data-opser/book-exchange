@@ -200,7 +200,7 @@ def create_trade():
 @bp.route('/users/<int:user_id>/active_offers', methods=['GET'])
 def get_user_active_offers(user_id):
     query = text("""
-        SELECT e.exchange_id, b.logo, b.title, a.name, b.description, u.name, u.profile_image
+        SELECT e.exchange_id, b.logo, b.title, a.name, b.description, u.name, u.profile_image, e.user_id_offer
         FROM exchange e
         JOIN book b ON e.book_id_offer = b.book_id
         JOIN author_book ab ON b.book_id = ab.book_id
@@ -217,7 +217,8 @@ def get_user_active_offers(user_id):
             'author': row[3],
             'description': row[4],
             'user_name': row[5],
-            'profile_image': row[6]
+            'profile_image': row[6],
+            'user_id_offer': row[7]
         }
         for row in result
     ]
@@ -258,11 +259,22 @@ def get_active_trades():
             'book_requested_author': row[8],
             'comment_offer': row[9],
             'comment_reply': row[10],
+            'user_id_offer': row[13],
         }
         for row in result
     ]
     return jsonify(trades)
 
+
+@bp.route('/trades/<int:trade_id>', methods=['DELETE'])
+def delete_trade(trade_id):
+    trade = Exchange.query.get(trade_id)
+    if not trade:
+        return jsonify({'error': 'Trade not found'}), 404
+
+    db.session.delete(trade)
+    db.session.commit()
+    return jsonify({'success': 'Trade deleted successfully'}), 200
 
 
 def register_routes(app):

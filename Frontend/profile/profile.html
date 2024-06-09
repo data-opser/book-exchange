@@ -132,6 +132,7 @@
                                         <img class="profile_img" src="../resources/profiles/${offer.profile_image}" alt="">
                                         <p>${offer.user_name}</p>
                                     </div>
+                                    ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">Close trade</button>` : ''}
                                     <p>&bigtriangledown;</p>
                                 </div>
                                 <div class="trade_book">
@@ -151,6 +152,27 @@
                                 </div>
                             `;
                             userOffersDiv.appendChild(offerDiv);
+                        });
+
+                        document.querySelectorAll('.close-trade').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const tradeId = this.getAttribute('exchange_id');
+                                fetch(`/api/trades/${tradeId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.closest('.trade').remove();
+                                    } else {
+                                        console.error('Error:', data.error);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                            });
                         });
                     })
                     .catch(error => console.error('Error:', error));

@@ -13,7 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="catalog.css">    
+    <link rel="stylesheet" href="catalog.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
 <body class="container">
@@ -180,6 +180,7 @@
                                     <img class="profile_img" src="/resources/profiles/${trade.user_profile_image}" alt="">
                                     <p>${trade.user_name}</p>
                                 </div>
+                                ${trade.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${trade.exchange_id}">Close trade</button>` : ''}
                                 <p>&bigtriangledown;</p>
                             </div>
                             <div class="trade_book">
@@ -201,6 +202,26 @@
                         `;
                         tradesDiv.appendChild(tradeDiv);
                     });
+                    document.querySelectorAll('.close-trade').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const tradeId = this.getAttribute('exchange_id');
+                                fetch(`/api/trades/${tradeId}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.closest('.trade').remove();
+                                    } else {
+                                        console.error('Error:', data.error);
+                                    }
+                                })
+                                .catch(error => console.error('Error:', error));
+                            });
+                        });
                 })
                 .catch(error => console.error('Error:', error));
         });
