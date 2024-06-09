@@ -99,9 +99,9 @@ p {
 .crosslink_to_catalog {
     display: block;
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 70px;
+    right: 15px;
+    top: 5px;
+    width: 60px;
     height: 40px;
 }
 .crosslink_to_catalog2 {
@@ -131,14 +131,22 @@ p {
     .crosslink_to_catalog {
         display: block;
         position: absolute;
-        right: 0;
+        right: 10px;
         top: 0;
-        width: 35px;
-        height: 20px;
+        width: 70px;
+        height: 60px;
     }
 }
 @media screen and (max-width: 600px) {
     .login_form_header h3 {
         font-size: 18px;
+    }
+    .crosslink_to_catalog {
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        width: 40px;
+        height: 40px;
     }
 }
