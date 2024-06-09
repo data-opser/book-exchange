@@ -178,16 +178,15 @@
                             <div class="trader">
                                 <div class="trader_left">
                                     <img class="profile_img" src="/resources/profiles/${trade.user_profile_image}" alt="">
-                                    <p>${trade.user_name}</p>
+                                    <p class="trader_p">${trade.user_name}</p>
                                 </div>
-                                ${trade.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${trade.exchange_id}">Close trade</button>` : ''}
-                                ${(trade.user_id_offer === parseInt(userId) && trade.user_id_reply) ? `<button class="accept-trade" exchange_id="${trade.exchange_id}">Accept trade</button>` : ''}
+                                ${trade.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${trade.exchange_id}">cansel trade</button>` : ''}
+                                ${(trade.user_id_offer === parseInt(userId) && trade.user_id_reply) ? `<button class="accept-trade" exchange_id="${trade.exchange_id}">accept trade</button>` : ''}
                                 ${trade.user_id_reply ?
                                 `<div class="trader_left">
                                     <img class="profile_img" src="/resources/profiles/${trade.user_profile_image_reply}" alt="">
-                                    <p>${trade.user_name_reply}</p>
+                                    <p class="trader_p">${trade.user_name_reply}</p>
                                 </div>` : ``}
-                                <p>&bigtriangledown;</p>
                             </div>
                             <div class="trade_book">
                                 <img class="book" src="/resources/books/${trade.book_offered_logo}" alt="">

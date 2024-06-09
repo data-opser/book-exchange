@@ -67,7 +67,6 @@ p {
     width: 2%;
     align-self: center;
     padding-right: 2%;
-    cursor: pointer;
 }
 
 #registerForm {
@@ -102,10 +101,10 @@ p {
 .crosslink_to_login {
     display: block;
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 70px;
-    height: 70px;
+    right: 15px;
+    top: 5px;
+    width: 50px;
+    height: 50px;
 }
 
 .login_form_bottom {
@@ -146,14 +145,7 @@ p {
     .add_favorite_text {        
         font-size: 26px;
     }
-    .crosslink_to_login {
-        display: block;
-        position: absolute;
-        right: 0;
-        top: 0;
-        width: 50px;
-        height: 50px;
-    }
+    
 }
 
 @media screen and (max-width: 700px) {
@@ -172,8 +164,8 @@ p {
     .crosslink_to_login {
         display: block;
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 6px;
+        top: 15px;
         width: 30px;
         height: 30px;
     }
