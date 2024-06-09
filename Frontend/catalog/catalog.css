@@ -440,6 +440,7 @@ input[type="checkbox"]:checked {
 }
 .close-trade:hover {
     background-color: #6c3e3e;
+    transition: 0.5s;
 }
 
 /*media queries*/
