@@ -200,43 +200,63 @@ def create_trade():
 @bp.route('/users/<int:user_id>/active_offers', methods=['GET'])
 def get_user_active_offers(user_id):
     query = text("""
-        SELECT e.exchange_id, b.logo, b.title, a.name, b.description, u.name, u.profile_image, e.user_id_offer
+        SELECT e.exchange_id, u1.name as user_name, u1.profile_image,   
+               b1.title as book_offered_title, b1.logo as book_offered_logo, 
+               b2.title as book_reply_title, b2.logo as book_reply_logo,
+               a1.name as book_offered_author, a2.name as book_reply_author,
+               e.comment_offer, e.comment_reply,
+               e.book_id_offer, e.book_id_reply, 
+               e.user_id_offer, e.user_id_reply,
+               u2.name as user_name_reply, u2.profile_image as profile_image_reply
         FROM exchange e
-        JOIN book b ON e.book_id_offer = b.book_id
-        JOIN author_book ab ON b.book_id = ab.book_id
-        JOIN author a ON ab.author_id = a.author_id
-        JOIN [user] u ON e.user_id_offer = u.user_id
+        JOIN [user] u1 ON e.user_id_offer = u1.user_id
+        LEFT JOIN [user] u2 ON e.user_id_reply = u2.user_id
+        JOIN book b1 ON e.book_id_offer = b1.book_id
+        LEFT JOIN author_book ab1 ON b1.book_id = ab1.book_id
+        LEFT JOIN author a1 ON ab1.author_id = a1.author_id
+        LEFT JOIN book b2 ON e.book_id_reply = b2.book_id
+        LEFT JOIN author_book ab2 ON b2.book_id = ab2.book_id
+        LEFT JOIN author a2 ON ab2.author_id = a2.author_id
         WHERE e.user_id_offer = :user_id AND e.is_complete = 0
     """)
     result = db.session.execute(query, {'user_id': user_id})
     offers = [
         {
             'exchange_id': row[0],
-            'logo': row[1],
-            'title': row[2],
-            'author': row[3],
-            'description': row[4],
-            'user_name': row[5],
-            'profile_image': row[6],
-            'user_id_offer': row[7]
+            'user_name': row[1],
+            'user_profile_image': row[2],
+            'book_offered_title': row[3],
+            'book_offered_logo': row[4],
+            'book_reply_title': row[5],
+            'book_reply_logo': row[6],
+            'book_offered_author': row[7],
+            'book_reply_author': row[8],
+            'comment_offer': row[9],
+            'comment_reply': row[10],
+            'user_id_offer': row[13],
+            'user_id_reply': row[14],
+            'user_name_reply': row[15],
+            'user_profile_image_reply': row[16],
         }
         for row in result
     ]
-    print(f'========= {offers}')
     return jsonify(offers)
 
 
 @bp.route('/active-trades', methods=['GET'])
 def get_active_trades():
     query = text("""
-        SELECT e.exchange_id, u.name as user_name, u.profile_image,   
+        SELECT e.exchange_id, u1.name as user_name, u1.profile_image,   
                b1.title as book_offered_title, b1.logo as book_offered_logo, 
-               b2.title as book_requested_title, b2.logo as book_requested_logo,
-               a1.name as book_offered_author, a2.name as book_requested_author,
+               b2.title as book_reply_title, b2.logo as book_reply_logo,
+               a1.name as book_offered_author, a2.name as book_reply_author,
                e.comment_offer, e.comment_reply,
-               e.book_id_offer, e.book_id_reply, e.user_id_offer
+               e.book_id_offer, e.book_id_reply, 
+               e.user_id_offer, e.user_id_reply,
+               u2.name as user_name_reply, u2.profile_image as profile_image_reply
         FROM exchange e
-        JOIN [user] u ON e.user_id_offer = u.user_id
+        JOIN [user] u1 ON e.user_id_offer = u1.user_id
+        LEFT JOIN [user] u2 ON e.user_id_reply = u2.user_id
         JOIN book b1 ON e.book_id_offer = b1.book_id
         LEFT JOIN author_book ab1 ON b1.book_id = ab1.book_id
         LEFT JOIN author a1 ON ab1.author_id = a1.author_id
@@ -253,17 +273,36 @@ def get_active_trades():
             'user_profile_image': row[2],
             'book_offered_title': row[3],
             'book_offered_logo': row[4],
-            'book_requested_title': row[5],
-            'book_requested_logo': row[6],
+            'book_reply_title': row[5],
+            'book_reply_logo': row[6],
             'book_offered_author': row[7],
-            'book_requested_author': row[8],
+            'book_reply_author': row[8],
             'comment_offer': row[9],
             'comment_reply': row[10],
             'user_id_offer': row[13],
+            'user_id_reply': row[14],
+            'user_name_reply': row[15],
+            'user_profile_image_reply': row[16],
         }
         for row in result
     ]
     return jsonify(trades)
+
+
+@bp.route('/trades/<int:trade_id>', methods=['PUT'])
+def update_trade(trade_id):
+    trade = Exchange.query.get(trade_id)
+    if not trade:
+        return jsonify({'error': 'Trade not found'}), 404
+
+    data = request.json
+    trade.user_id_reply = data.get('user_id_reply')
+    trade.book_id_reply = data.get('book_id_reply')
+    trade.comment_reply = data.get('comment_reply')
+    trade.is_complete = False
+
+    db.session.commit()
+    return jsonify({'success': 'Trade updated successfully'})
 
 
 @bp.route('/trades/<int:trade_id>', methods=['DELETE'])

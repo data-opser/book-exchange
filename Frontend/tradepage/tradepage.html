@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trade</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="tradepage.css">
     <link rel="icon" href="../resources/icon.png">
 </head>
@@ -39,7 +30,7 @@
                 <p class="user_info1">Description</p>
                 <textarea id="description" name="" class="user_name"></textarea>
             </div>
-            <button class="add_favorite_text" id="create-trade">Create a trade</button>
+            <button class="add_favorite_text" id="trade-button">Create a trade</button>
         </div>
     </div>
 
@@ -47,8 +38,14 @@
         document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
             const bookId = params.get('book_id');
+            const offerId = params.get('offer_id');
+            const tradeButton = document.getElementById('trade-button');
+
+            if (offerId) {
+                tradeButton.innerText = 'Respond to offer';
+            }
+
             if (bookId) {
-                // Fetch book details and update the link text
                 fetch(`/api/books/${bookId}`)
                     .then(response => response.json())
                     .then(book => {
@@ -56,7 +53,6 @@
                         const bookLogo = document.getElementById('book-logo');
                         const bookTitle = document.getElementById('book-title');
 
-                        // bookLink.style.display = 'none';
                         bookLogo.src = `/resources/books/${book.logo}`;
                         bookLogo.style.display = 'block';
                         bookTitle.textContent = `${book.title} by ${book.author}`;
@@ -66,18 +62,21 @@
                     .catch(error => console.error('Error:', error));
             }
 
-            document.getElementById('create-trade').addEventListener('click', function() {
+            tradeButton.addEventListener('click', function() {
                 const userId = localStorage.getItem('user_id');
-                const bookId = document.getElementById('book-link').dataset.bookId;
                 const description = document.getElementById('description').value;
 
                 if (userId && bookId && description) {
-                    fetch('/api/trades', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ user_id: userId, book_id: bookId, description: description })
+                    const endpoint = offerId ? `/api/trades/${offerId}` : '/api/trades';
+                    const method = offerId ? 'PUT' : 'POST';
+                    const body = offerId
+                        ? JSON.stringify({ user_id_reply: userId, book_id_reply: bookId, comment_reply: description })
+                        : JSON.stringify({ user_id: userId, book_id: bookId, description: description });
+
+                    fetch(endpoint, {
+                        method: method,
+                        headers: { 'Content-Type': 'application/json' },
+                        body: body
                     })
                     .then(response => response.json())
                     .then(data => {

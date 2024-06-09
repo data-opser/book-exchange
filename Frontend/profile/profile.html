@@ -128,31 +128,46 @@
                             offerDiv.className = 'trade';
                             offerDiv.innerHTML = `
                                 <div class="trader">
-                                    <div class="trader_left">
-                                        <img class="profile_img" src="../resources/profiles/${offer.profile_image}" alt="">
-                                        <p>${offer.user_name}</p>
-                                    </div>
-                                    ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">Close trade</button>` : ''}
-                                    <p>&bigtriangledown;</p>
+                                <div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${offer.user_profile_image}" alt="">
+                                    <p>${offer.user_name}</p>
                                 </div>
-                                <div class="trade_book">
-                                    <img class="book" src="../resources/books/${offer.logo}" alt="">
-                                    <div class="trade_bookdescription">
+                                ${offer.user_id_offer === parseInt(userId) ? `<button class="close-trade" exchange_id="${offer.exchange_id}">Close trade</button>` : ''}
+                                ${offer.user_id_reply ?
+                                `<div class="trader_left">
+                                    <img class="profile_img" src="/resources/profiles/${offer.user_profile_image_reply}" alt="">
+                                    <p>${offer.user_name_reply}</p>
+                                </div>` : ``}
+                                <p>&bigtriangledown;</p>
+                            </div>
+                            <div class="trade_book">
+                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="">
+                                <div class="trade_bookdescription">
+                                    <div>
+                                        <p>"${offer.book_offered_title}"</p>
+                                        <p>${offer.book_offered_author}</p>
+                                    </div>
+                                        <p>${offer.comment_offer}</p>
+                                </div>
+                                <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
+                                <div class="trade_book_choose">
+                                  ${offer.user_id_reply ?
+                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="">
+                                      <div class="trade_bookdescription">
                                         <div>
-                                            <p>"${offer.title}"</p>
-                                            <p>${offer.author}</p>
+                                          <p>"${offer.book_reply_title}"</p>
+                                          <p>${offer.book_reply_author}</p>
                                         </div>
-                                        <p>${offer.description}</p>
-                                    </div>
-                                    <img class="trade_arrow" src="../resources/arrow_trade.png" alt="">
-                                    <div class="trade_book_choose">
-                                        ${offer.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` : `
-                                        <a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
-                                        <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
-                                        <p>Choose your book</p>`}
-                                    </div>
+                                        <p>${offer.comment_reply}</p>
+                                      </div>` :
+                                    (offer.user_id_offer === parseInt(userId) ? `<p>Waiting on response</p>` :
+                                      `<a class="crosslink_to_chooseboook" href="../choosebook/choosebook.html"></a>
+                                      <img class="trade_book_choose_magnyfyingglass" src="../resources/magnyfying_glass.png" alt="">
+                                      <p>Choose your book</p>`
+                                    )
+                                  }
                                 </div>
-                            `;
+                        `;
                             userOffersDiv.appendChild(offerDiv);
                         });
 
