@@ -150,6 +150,7 @@ p {
     height: 300px;
     width: 200px;
     align-self: center;
+    cursor: pointer;
 }
 
 .release {

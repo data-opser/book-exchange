@@ -327,6 +327,10 @@ footer p {
     background-color: #6c3e3e;
     transition: 0.5s;
 }
+.trade_book_choose .book {
+    height: 200px;
+    width: 150px;
+}
 /* media queries */
 @media screen and (max-width: 1100px) {   
     .container {
@@ -409,6 +413,12 @@ footer p {
     .book {
         width: 20%;
     }
+    .trade_book_choose .book {
+        height: 150px;
+        width: 150px;
+        max-width: 70%;
+        margin-top: 1%;
+    }
     .edit_button {
         height: 4%;
     }
@@ -472,13 +482,27 @@ footer p {
         grid-template: 50px 800px 1fr 200px / 2fr 4fr 1fr;
     }
 }
-
+@media screen and (max-width: 750px) {
+    .trade_book_choose .book {
+        height: 130px;
+        width: 150px;
+        max-width: 70%;
+        margin-top: 1%;
+    }
+} 
 @media screen and (max-width: 700px) {  
     .container {
         grid-template: 50px 650px 1fr 200px / 2fr 4fr 1fr;
     }
 }
-
+@media screen and (max-width: 650px) {
+    .trade_book_choose .book {
+        height: 100px;
+        width: 150px;
+        max-width: 70%;
+        margin-top: 1%;
+    }
+} 
 @media screen and (max-width: 500px) { 
     .container {
         grid-template: 50px 500px 1fr 200px / 2fr 4fr 1fr;

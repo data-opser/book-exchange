@@ -359,6 +359,7 @@ input[type="checkbox"]:checked {
     height: 300px;
     width: 200px;
     align-self: center;
+    cursor: pointer;
 }
 .trade_arrow {
     height: 170px;
