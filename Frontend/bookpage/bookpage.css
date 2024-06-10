@@ -1,11 +1,11 @@
 .container {
     display: grid;
-    grid-template: 150px 6fr 300px / 4fr 2fr;
+    grid-template: 150px 6fr 300px / 1fr;
 }
 
 .blockheader {
     position: relative;
-    grid-area: 1 / 1 / 2 / 3;
+    grid-area: 1 / 1 / 2 / 2;
     margin: 0;
     display: flex;
     justify-content: space-between;
@@ -14,21 +14,15 @@
 
 .block_left {
     grid-area: 2 / 1 / 3 / 2;
-    border-right: 3px solid #834C4C;
     padding-left: 7%;
     margin-bottom: 2%;
     padding-right: 1%;
     display: flex;
 }
 
-.block_right {
-    grid-area: 2 / 2 / 3 / 3;
-    padding-left: 5%;
-    height: 100%;
-}
 
 .blockfooter {
-    grid-area: 3 / 1 / 4 / 3;
+    grid-area: 3 / 1 / 4 / 2;
     background-color: #a37575;
     color: black;
     display: flex;
@@ -263,8 +257,7 @@ footer p {
     }
     .container {
         display: grid;
-        grid-template: 50px 1fr 1fr 1fr 200px / 1fr 7fr 1fr;
-        
+        grid-template: 50px 100% 200px / 1fr 7fr 1fr;        
     }
     .blockheader {
         width: 100%;
@@ -278,12 +271,12 @@ footer p {
         margin-right: 0;
     }
     .book_right_info {
-        grid-area: 3 / 1 / 4 / 4;
+        grid-area: 2 / 1 / 4 / 4;
         display: block;
         width: 100%;
     }
     .blockfooter {
-        grid-area: 5 / 1 / 6 / 4;
+        grid-area: 3 / 1 / 4 / 4;
     }
 
     .block_left {
