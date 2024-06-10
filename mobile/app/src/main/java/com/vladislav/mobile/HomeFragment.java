@@ -69,6 +69,8 @@ public class HomeFragment extends Fragment {
             setImage(userOfferPhoto, "user_profile_image");
             layoutRequest.setVisibility(View.VISIBLE);
 
+            NotificationHandler notification = new NotificationHandler(activity);
+            notification.sendNotification("Confirmation request", "You have received a book exchange request :)");
             buttonAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
