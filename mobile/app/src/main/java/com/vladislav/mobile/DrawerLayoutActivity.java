@@ -33,6 +33,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
     private JSONObject jsonUserData;
     private DrawerLayout drawerLayout;
     private SettingsFragment settingsFragment;
+    private long lastBackPressedTime;
     private final int REQUEST_CODE_POST_NOTIFICATIONS = 123;
     SharedPreferences.Editor editor;
     @Override
@@ -66,7 +67,8 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
             public void onUserDataReceived(JSONObject userData) {
                 jsonUserData = userData;
                 if (savedInstanceState == null) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(userID)).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment(userID), "HOME_FRAGMENT")
+                            .addToBackStack(null).commit();
                     navigationView.setCheckedItem(R.id.nav_home);
                 }
                 TextView nameSurname = navigationView.findViewById(R.id.textView_NameSurname);
@@ -90,7 +92,9 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        if (menuItem.getItemId() == R.id.nav_settings) {
+        if (menuItem.getItemId() == R.id.nav_home) {
+            setNewFragment(new HomeFragment((int) (double)jsonUserData.get("user_id")), "HOME_FRAGMENT");
+        } else if (menuItem.getItemId() == R.id.nav_settings) {
             settingsFragment = new SettingsFragment((int)(double)jsonUserData.get("user_id"));
             setNewFragment(settingsFragment, "SETTINGS_FRAGMENT");
         } else if (menuItem.getItemId() == R.id.nav_support) {
@@ -120,24 +124,37 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
                 navigationView.setCheckedItem(R.id.nav_settings);
             } else if (newCurrentFragment instanceof SupportFragment) {
                 navigationView.setCheckedItem(R.id.nav_support);
+            } else {
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                setNewFragment(new HomeFragment((int)(double)jsonUserData.get("user_id")), "HOME_FRAGMENT");
+                if (lastBackPressedTime + 2000 > System.currentTimeMillis()) {
+                    System.exit(0);
+                } else {
+                    Toast.makeText(this, "Натисніть ще раз для виходу", Toast.LENGTH_SHORT).show();
+                }
+                lastBackPressedTime = System.currentTimeMillis();
             }
-        } else{
-            super.onBackPressed();
         }
     }
-
 
     public interface UserDataCallback {
         void onUserDataReceived(JSONObject userData);
         void onError(String error);
     }
     public void setNewFragment(Fragment fragment, String tag) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Fragment existingFragment = fragmentManager.findFragmentByTag(tag);
+
+        if (existingFragment == null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else {
+            fragmentManager.popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
+
 
     public void Exit() {
         AlertDialog.Builder builder = new AlertDialog.Builder(DrawerLayoutActivity.this);
