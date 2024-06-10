@@ -145,7 +145,7 @@
                                 </div>` : ``}
                             </div>
                             <div class="trade_book">
-                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="">
+                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="" onclick="redirectToBookPage(${offer.book_id_offer})">
                                 <div class="trade_bookdescription">
                                     <div>
                                         <p>"${offer.book_offered_title}"</p>
@@ -156,7 +156,7 @@
                                 <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
                                 <div class="trade_book_choose">
                                   ${offer.user_id_reply ?
-                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="">
+                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="" onclick="redirectToBookPage(${offer.book_id_offer})">
                                       <div class="trade_bookdescription">
                                         <div>
                                           <p>"${offer.book_reply_title}"</p>
@@ -226,6 +226,10 @@
                 console.error('User ID not found');
             }
         });
+
+        function redirectToBookPage(bookId) {
+            window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;
+        }
 
         function redirectToBookPage(bookId) {
             window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;
