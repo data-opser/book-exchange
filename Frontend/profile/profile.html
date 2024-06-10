@@ -50,20 +50,7 @@
     </div>
     <div class="block_right">
         <h3>Want:</h3>
-        <div class="books_container">
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-        </div>
+        <div id="user_favorites" class="books_container"></div>
         <h3>Offers:</h3>
         <div id="user_offers" class="trades"></div>
         <h3>Have:</h3>
@@ -117,6 +104,24 @@
                     })
                     .catch(error => console.error('Error:', error));
 
+                fetch(`/api/users/${userId}/favorites`)
+                    .then(response => response.json())
+                    .then(favorites => {
+                        console.log('Favorites:', favorites);
+                        const userFavoritesDiv = document.getElementById('user_favorites');
+                        favorites.forEach(book => {
+                            const bookDiv = document.createElement('div');
+                            bookDiv.className = 'book_item';
+                            bookDiv.innerHTML = `
+                                <img class="book_img" src="../resources/books/${book.logo}" alt="${book.title}" onclick="redirectToBookPage(${book.book_id})">
+                                <p>${book.title}</p>
+                                <p>${book.author}</p>
+                            `;
+                            userFavoritesDiv.appendChild(bookDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+
                 fetch(`/api/users/${userId}/active_offers`)
                     .then(response => response.json())
                     .then(offers => {
@@ -140,7 +145,7 @@
                                 </div>` : ``}
                             </div>
                             <div class="trade_book">
-                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="">
+                                <img class="book" src="/resources/books/${offer.book_offered_logo}" alt="" onclick="redirectToBookPage(${offer.book_id_offer})">
                                 <div class="trade_bookdescription">
                                     <div>
                                         <p>"${offer.book_offered_title}"</p>
@@ -151,7 +156,7 @@
                                 <img class="trade_arrow" src="/resources/arrow_trade.png" alt="">
                                 <div class="trade_book_choose">
                                   ${offer.user_id_reply ?
-                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="">
+                                    `<img class="book" src="/resources/books/${offer.book_reply_logo}" alt="" onclick="redirectToBookPage(${offer.book_id_offer})">
                                       <div class="trade_bookdescription">
                                         <div>
                                           <p>"${offer.book_reply_title}"</p>
@@ -221,6 +226,10 @@
                 console.error('User ID not found');
             }
         });
+
+        function redirectToBookPage(bookId) {
+            window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;
+        }
 
         function redirectToBookPage(bookId) {
             window.location.href = `/bookpage/bookpage.html?book_id=${bookId}`;

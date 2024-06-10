@@ -18,6 +18,7 @@ class User(db.Model):
     exchanges_offered = db.relationship('Exchange', foreign_keys='Exchange.user_id_offer', backref='user_offer', lazy='dynamic', cascade='all, delete-orphan')
     exchanges_received = db.relationship('Exchange', foreign_keys='Exchange.user_id_reply', backref='user_reply', lazy='dynamic', cascade='all, delete-orphan')
     ratings = db.relationship('Rating', backref='user', lazy='dynamic', cascade='all, delete-orphan')
+    favorites = db.relationship('Favorite', backref='user', lazy='dynamic', cascade='all, delete-orphan')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -43,6 +44,7 @@ class Book(db.Model):
     exchanges_offered = db.relationship('Exchange', foreign_keys='Exchange.book_id_offer', backref='book_offer', lazy='dynamic', cascade='all, delete-orphan')
     exchanges_received = db.relationship('Exchange', foreign_keys='Exchange.book_id_reply', backref='book_reply', lazy='dynamic', cascade='all, delete-orphan')
     ratings = db.relationship('Rating', backref='book', lazy='dynamic', cascade='all, delete-orphan')
+    favorites = db.relationship('Favorite', backref='book', lazy='dynamic', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Book {self.title}>'
@@ -64,6 +66,14 @@ class Library(db.Model):
 
     def __repr__(self):
         return f'<Library User {self.user_id} Book {self.book_id}>'
+
+
+class Favorite(db.Model):
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), primary_key=True, nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'), primary_key=True, nullable=False)
+
+    def __repr__(self):
+        return f'<Favorite User {self.user_id} Book {self.book_id}>'
 
 
 class Exchange(db.Model):

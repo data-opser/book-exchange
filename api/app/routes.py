@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app, session
 import os
-from api.app.models import User, Book, Author, AuthorBook, Exchange, Library, Genre, BookGenre, Rating
+from api.app.models import User, Book, Author, AuthorBook, Exchange, Library, Genre, BookGenre, Rating, Favorite
 from api.app import db, static_folder_path
 from werkzeug.utils import secure_filename
 from flask import render_template_string
@@ -98,6 +98,53 @@ def change_password(user_id):
     db.session.commit()
 
     return jsonify({'success': 'Password changed successfully'}), 200
+
+
+@bp.route('/users/<int:user_id>/favorites', methods=['POST'])
+def add_to_favorites(user_id):
+    data = request.json
+    book_id = data.get('book_id')
+
+    if not book_id:
+        return jsonify({'error': 'Book ID is required'}), 400
+
+    # Add to favorites logic
+    favorite = Favorite(user_id=user_id, book_id=book_id)
+    db.session.add(favorite)
+    db.session.commit()
+
+    return jsonify({'success': 'Book added to favorites'}), 200
+
+
+@bp.route('/users/<int:user_id>/favorites', methods=['DELETE'])
+def delete_from_favorites(user_id):
+    data = request.json
+    book_id = data.get('book_id')
+
+    favorite = Favorite.query.filter_by(user_id=user_id, book_id=book_id).first()
+    if favorite:
+        db.session.delete(favorite)
+        db.session.commit()
+        return jsonify({'success': 'Book removed from favorites'})
+    else:
+        return jsonify({'error': 'Favorite not found'}), 404
+
+
+@bp.route('/users/<int:user_id>/favorites', methods=['GET'])
+def get_user_favorites(user_id):
+    query = text("""
+        SELECT b.book_id, b.logo, b.title, a.name 
+        FROM [user] u 
+        JOIN favorite f ON u.user_id = f.user_id 
+        JOIN book b ON f.book_id = b.book_id 
+        JOIN author_book ab ON b.book_id = ab.book_id 
+        JOIN author a ON ab.author_id = a.author_id 
+        WHERE u.user_id = :user
+    """)
+    result = db.session.execute(query, {'user': user_id})
+
+    favorites = [{'book_id': row[0], 'logo': row[1], 'title': row[2], 'author': row[3]} for row in result]
+    return jsonify(favorites)
 
 
 @bp.route('/users/<int:user_id>', methods=['GET'])
@@ -226,9 +273,11 @@ def get_book(book_id):
     rating = round(rating, 2) if rating else 0
 
     user_rating = None
+    is_favorite = False
     if user_id:
         user_rating = Rating.query.filter_by(book_id=book_id, user_id=user_id).first()
         user_rating = user_rating.vote if user_rating else None
+        is_favorite = Favorite.query.filter_by(book_id=book_id, user_id=user_id).first() is not None
 
     return jsonify({
         'id': book.book_id,
@@ -240,7 +289,8 @@ def get_book(book_id):
         'genre': ', '.join(genres),
         'year': book.release_date.year,
         'rating': rating,
-        'user_rating': user_rating
+        'user_rating': user_rating,
+        'is_favorite': is_favorite
     })
 
 

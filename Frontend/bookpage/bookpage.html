@@ -46,7 +46,7 @@
             <h3 id="book-year">Year of writing: </h3>
             <h3 id="book-rating-text">Rating: </h3>
             <p id="book-description">Description</p>
-            <button class="add_favorite_text">Add to favorites</button>
+            <button class="add_favorite_text" id="favorite-button">Add to favorites</button>
         </div>
     </div>
 
@@ -92,6 +92,7 @@
 
     <script>
         let currentRating = 0;
+        let isFavorite = false;
 
         document.addEventListener('DOMContentLoaded', function() {
             const params = new URLSearchParams(window.location.search);
@@ -112,6 +113,14 @@
 
                         currentRating = data.user_rating || 0;
                         setRatingStars(currentRating);
+
+                        // Check if the book is in favorites
+                        fetch(`/api/users/${userId}/favorites`)
+                            .then(response => response.json())
+                            .then(favorites => {
+                                isFavorite = favorites.some(fav => fav.book_id === parseInt(bookId));
+                                updateFavoriteButton();
+                            });
                     })
                     .catch(error => console.error('Error:', error));
             } else {
@@ -129,7 +138,59 @@
                     })
                     .catch(error => console.error('Error:', error));
             }
+
+            // Add to favorites functionality
+            document.getElementById('favorite-button').addEventListener('click', function() {
+                if (userId && bookId) {
+                    if (isFavorite) {
+                        fetch(`/api/users/${userId}/favorites`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ book_id: bookId })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Book removed from favorites');
+                                isFavorite = false;
+                                updateFavoriteButton();
+                            } else {
+                                alert('Failed to remove book from favorites');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    } else {
+                        fetch(`/api/users/${userId}/favorites`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ book_id: bookId })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert('Book added to favorites');
+                                isFavorite = true;
+                                updateFavoriteButton();
+                            } else {
+                                alert('Failed to add book to favorites');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    }
+                } else {
+                    alert('User ID or Book ID not found');
+                }
+            });
         });
+
+        function updateFavoriteButton() {
+            const favoriteButton = document.getElementById('favorite-button');
+            favoriteButton.innerText = isFavorite ? 'Remove from favorites' : 'Add to favorites';
+        }
 
         function setRatingStars(rating) {
             const ratingDiv = document.getElementById('book-rating');
@@ -177,5 +238,6 @@
             window.location.href = '/profile/profile.html';
         }
     </script>
+
 </body>
 </html>
