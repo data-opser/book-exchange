@@ -50,20 +50,7 @@
     </div>
     <div class="block_right">
         <h3>Want:</h3>
-        <div class="books_container">
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-            <div class="book_item">
-                <img class="book_img" src="../resources/books/the_dream_daughter.png" alt="">
-                <p>"The Dream Daughter" Diane Chamberlain</p>
-            </div>
-        </div>
+        <div id="user_favorites" class="books_container"></div>
         <h3>Offers:</h3>
         <div id="user_offers" class="trades"></div>
         <h3>Have:</h3>
@@ -113,6 +100,24 @@
                                 <p>${book.author}</p>
                             `;
                             userBooksDiv.appendChild(bookDiv);
+                        });
+                    })
+                    .catch(error => console.error('Error:', error));
+
+                fetch(`/api/users/${userId}/favorites`)
+                    .then(response => response.json())
+                    .then(favorites => {
+                        console.log('Favorites:', favorites);
+                        const userFavoritesDiv = document.getElementById('user_favorites');
+                        favorites.forEach(book => {
+                            const bookDiv = document.createElement('div');
+                            bookDiv.className = 'book_item';
+                            bookDiv.innerHTML = `
+                                <img class="book_img" src="../resources/books/${book.logo}" alt="${book.title}" onclick="redirectToBookPage(${book.book_id})">
+                                <p>${book.title}</p>
+                                <p>${book.author}</p>
+                            `;
+                            userFavoritesDiv.appendChild(bookDiv);
                         });
                     })
                     .catch(error => console.error('Error:', error));

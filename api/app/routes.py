@@ -130,6 +130,23 @@ def delete_from_favorites(user_id):
         return jsonify({'error': 'Favorite not found'}), 404
 
 
+@bp.route('/users/<int:user_id>/favorites', methods=['GET'])
+def get_user_favorites(user_id):
+    query = text("""
+        SELECT b.book_id, b.logo, b.title, a.name 
+        FROM [user] u 
+        JOIN favorite f ON u.user_id = f.user_id 
+        JOIN book b ON f.book_id = b.book_id 
+        JOIN author_book ab ON b.book_id = ab.book_id 
+        JOIN author a ON ab.author_id = a.author_id 
+        WHERE u.user_id = :user
+    """)
+    result = db.session.execute(query, {'user': user_id})
+
+    favorites = [{'book_id': row[0], 'logo': row[1], 'title': row[2], 'author': row[3]} for row in result]
+    return jsonify(favorites)
+
+
 @bp.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     user = User.query.get(user_id)
