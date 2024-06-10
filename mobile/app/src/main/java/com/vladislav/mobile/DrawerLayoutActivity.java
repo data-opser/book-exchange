@@ -155,7 +155,6 @@ public class DrawerLayoutActivity extends AppCompatActivity implements Navigatio
         }
     }
 
-
     public void Exit() {
         AlertDialog.Builder builder = new AlertDialog.Builder(DrawerLayoutActivity.this);
         builder.setTitle("Exit")

@@ -20,7 +20,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 public class SettingsFragment extends Fragment {
-
+    public SettingsFragment() {
+    }
     private DrawerLayoutActivity activity;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
